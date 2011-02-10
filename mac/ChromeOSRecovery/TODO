@@ -1,0 +1,11 @@
+TODO
+
+Would be nice, but not now
+- Automatically unpack zip/bz2 archives for locally-selected files
+ - Easy workaround: user can do it him/herself
+- Use CommonCrypto to SHA-1 on the fly as data arrives
+ - Using NSTask after the fact works now; NSURLDownload writes straight to a
+   file and it'd be hard to do this
+- Pad out the writes to the block size rather than using OPENDEV_BLCK if the
+  image is a non-multiple of the block size
+- Estimate time remaining for download and burn

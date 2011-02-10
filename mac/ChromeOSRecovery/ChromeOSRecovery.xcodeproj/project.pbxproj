@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		821E4E5112A6A8DE002EF1C3 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 821E4E5012A6A8DE002EF1C3 /* AppController.mm */; };
+		821E4F9112A6C1A3002EF1C3 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 821E4F9012A6C1A3002EF1C3 /* DiskArbitration.framework */; };
+		821E536F12A71881002EF1C3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 821E536D12A71881002EF1C3 /* MainMenu.xib */; };
+		821E53E112A71B40002EF1C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 821E53DF12A71B40002EF1C3 /* Localizable.strings */; };
+		821E542012A7F038002EF1C3 /* app.icns in Resources */ = {isa = PBXBuildFile; fileRef = 821E541F12A7F038002EF1C3 /* app.icns */; };
+		821E56D612A85AF2002EF1C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 821E56D512A85AF2002EF1C3 /* AppKit.framework */; };
+		8238732012B19C60003AEA9C /* DockTile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8238731F12B19C60003AEA9C /* DockTile.mm */; };
+		8238734D12B1A773003AEA9C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8238734C12B1A773003AEA9C /* Carbon.framework */; };
+		8D11072D0486CEB800E47090 /* ChromeOSRecoveryMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* ChromeOSRecoveryMain.m */; settings = {ATTRIBUTES = (); }; };
+		D4A6C9B909479B9200354625 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6C9B709479B9200354625 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		29B97316FDCFA39411CA2CEA /* ChromeOSRecoveryMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChromeOSRecoveryMain.m; sourceTree = "<group>"; };
+		821E4E4F12A6A8DE002EF1C3 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		821E4E5012A6A8DE002EF1C3 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
+		821E4EA912A6B490002EF1C3 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		821E4F9012A6C1A3002EF1C3 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		821E527D12A70487002EF1C3 /* eintr_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eintr_wrapper.h; sourceTree = "<group>"; };
+		821E536E12A71881002EF1C3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		821E53E012A71B40002EF1C3 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		821E541F12A7F038002EF1C3 /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = app.icns; path = Resources/app.icns; sourceTree = "<group>"; };
+		821E557E12A84C20002EF1C3 /* scoped_ptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scoped_ptr.h; sourceTree = "<group>"; };
+		821E56D512A85AF2002EF1C3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		8238731E12B19C60003AEA9C /* DockTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTile.h; sourceTree = "<group>"; };
+		8238731F12B19C60003AEA9C /* DockTile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DockTile.mm; sourceTree = "<group>"; };
+		8238734C12B1A773003AEA9C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		8D1107320486CEB800E47090 /* Chrome OS Image Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chrome OS Image Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A6C9A709479AD300354625 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
+		D4A6C9B809479B9200354625 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				821E4F9112A6C1A3002EF1C3 /* DiskArbitration.framework in Frameworks */,
+				821E56D612A85AF2002EF1C3 /* AppKit.framework in Frameworks */,
+				8238734D12B1A773003AEA9C /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Chrome OS Image Creator.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* ChromeOSRecovery */ = {
+			isa = PBXGroup;
+			children = (
+				D4A6C9B309479B5A00354625 /* Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = ChromeOSRecovery;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				821E541F12A7F038002EF1C3 /* app.icns */,
+				D4A6C9A709479AD300354625 /* Info.plist */,
+				D4A6C9B709479B9200354625 /* InfoPlist.strings */,
+				821E53DF12A71B40002EF1C3 /* Localizable.strings */,
+				821E536D12A71881002EF1C3 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				821E56D512A85AF2002EF1C3 /* AppKit.framework */,
+				8238734C12B1A773003AEA9C /* Carbon.framework */,
+				821E4F9012A6C1A3002EF1C3 /* DiskArbitration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4A6C9B309479B5A00354625 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				821E4EA912A6B490002EF1C3 /* TODO */,
+				821E527D12A70487002EF1C3 /* eintr_wrapper.h */,
+				821E557E12A84C20002EF1C3 /* scoped_ptr.h */,
+				821E4E4F12A6A8DE002EF1C3 /* AppController.h */,
+				821E4E5012A6A8DE002EF1C3 /* AppController.mm */,
+				29B97316FDCFA39411CA2CEA /* ChromeOSRecoveryMain.m */,
+				8238731E12B19C60003AEA9C /* DockTile.h */,
+				8238731F12B19C60003AEA9C /* DockTile.mm */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* ChromeOSRecovery */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ChromeOSRecovery" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChromeOSRecovery;
+			productInstallPath = "$(HOME)/Applications";
+			productName = ChromeOSRecovery;
+			productReference = 8D1107320486CEB800E47090 /* Chrome OS Image Creator.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ChromeOSRecovery" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* ChromeOSRecovery */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* ChromeOSRecovery */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4A6C9B909479B9200354625 /* InfoPlist.strings in Resources */,
+				821E536F12A71881002EF1C3 /* MainMenu.xib in Resources */,
+				821E53E112A71B40002EF1C3 /* Localizable.strings in Resources */,
+				821E542012A7F038002EF1C3 /* app.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* ChromeOSRecoveryMain.m in Sources */,
+				821E4E5112A6A8DE002EF1C3 /* AppController.mm in Sources */,
+				8238732012B19C60003AEA9C /* DockTile.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		821E536D12A71881002EF1C3 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				821E536E12A71881002EF1C3 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		821E53DF12A71B40002EF1C3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				821E53E012A71B40002EF1C3 /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D4A6C9B709479B9200354625 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4A6C9B809479B9200354625 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_NAME = "Chrome OS Image Creator";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_NAME = "Chrome OS Image Creator";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Chrome OS Image Creator";
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				PRODUCT_NAME = "Chrome OS Image Creator";
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ChromeOSRecovery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ChromeOSRecovery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
