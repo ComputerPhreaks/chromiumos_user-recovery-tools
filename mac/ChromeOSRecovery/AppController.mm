@@ -871,7 +871,7 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
   NSArray* sizes = [NSArray arrayWithObjects:
                     @"B", @"KB", @"MB", @"GB", @"TB", @"PB", nil];
 
-  int dimension = 0;
+  unsigned int dimension = 0;
   const int kKilo = 1000;  // we're doing New Apple Style sizes
   while (size > kKilo && dimension < [sizes count] - 1) {
     size /= kKilo;

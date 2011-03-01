@@ -33,7 +33,7 @@
   BOOL isImageLocal_;
   NSDictionary* image_;  // valid if !isImageLocal; WEAK (member of images_)
   NSString* imagePath_;
-  int urlIndex_;
+  unsigned int urlIndex_;
   NSString* downloadPath_;
   off_t imageSize_;
   NSURLDownload* download_;
