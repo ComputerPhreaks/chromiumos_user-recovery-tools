@@ -19,9 +19,10 @@ set -eu
 # run again without needing to download a second time.
 WORKDIR=${WORKDIR:-/tmp/tmp.crosrec}
 
-# Where do we look for the config file? Note that we can override this by just
-# specifying the config file URL on the command line.
-CONFIGURL="${1:-https://dl.google.com/dl/edgedl/chromeos/recovery/recovery.conf}"
+# Where do we look for the config file? We can override this for debugging by
+# specifying "--config URL" on the command line, but curl and wget may handle
+# file URLs differently.
+CONFIGURL="${2:-https://dl.google.com/dl/edgedl/chromeos/recovery/recovery.conf}"
 
 # Device to put this stuff on, perhaps the user knows best?
 DEVICE="${DEVICE:-}"
@@ -786,6 +787,13 @@ unmount_partition() {
 
 ##############################################################################
 # Okay, do something...
+
+# Warn about usage
+if [ -n "${1:-}" ] && [ "$1" != "--config" ]; then
+  echo "This program takes no arguments. Just run it."
+  # That's not really true. For debugging you can specify "--config URL".
+  exit 1
+fi
 
 # Make sure we have the tools we need
 require_utils
