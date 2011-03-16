@@ -63,7 +63,7 @@
 - (IBAction)nextTab:(id)sender;
 - (IBAction)previousTab:(id)sender;
 - (IBAction)done:(id)sender;
-- (void)switchToTabAtIndex:(int)index;
+- (void)switchToTabAtIndex:(NSInteger)index;
 
 - (IBAction)showHelp:(id)sender;
 

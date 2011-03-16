@@ -75,7 +75,8 @@ static const double kProgressBarOffset = 20.0 / 128.0;
   trackInfo.bounds = rect;
   trackInfo.min = 0;
   trackInfo.max = std::numeric_limits<SInt32>::max();
-  trackInfo.value = progress_ * std::numeric_limits<SInt32>::max();
+  trackInfo.value =
+      static_cast<SInt32>(progress_ * std::numeric_limits<SInt32>::max());
   trackInfo.attributes = kThemeTrackHorizontal;
   trackInfo.enableState = kThemeTrackActive;
   trackInfo.trackInfo.progress.phase = phase_;

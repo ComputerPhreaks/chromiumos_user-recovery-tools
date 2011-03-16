@@ -287,7 +287,7 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
   [NSApp terminate:sender];
 }
 
-- (void)switchToTabAtIndex:(int)index {
+- (void)switchToTabAtIndex:(NSInteger)index {
   // In the nib, each NSTabViewItem has a view with a single NSView child of the
   // desired size of the window. Switch while resizing the window.
   NSView* newTabViewItemView = [[tabView_ tabViewItemAtIndex:index] view];
