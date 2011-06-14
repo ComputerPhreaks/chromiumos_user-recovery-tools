@@ -34,13 +34,15 @@ NSString* const kRecoveryToolURLString =
 NSString* const kHelpURLString =
     @"http://www.google.com/chromeos/recovery";
 
-NSString* const kConfigVersion = @"recovery_tool_mac_version";
+NSString* const kConfigFileVersion = @"recovery_tool_mac_version";
 NSString* const kConfigUpgradeMessage = @"recovery_tool_update";
 NSString* const kConfigChannel = @"channel";
 NSString* const kConfigName = @"name";
 NSString* const kConfigFile = @"file";
 NSString* const kConfigHWID = @"hwid";
 NSString* const kConfigSHA1 = @"sha1";
+NSString* const kConfigVersion = @"version";
+NSString* const kConfigDesc = @"desc";
 NSString* const kConfigZipSize = @"zipfilesize";
 NSString* const kConfigImageSize = @"filesize";
 NSString* const kConfigURL = @"url";
@@ -179,6 +181,25 @@ struct DADiskUnclaimDoer {
 };
 typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
     ScopedDADiskClaim;
+
+NSString* CommonPrefixOfStringArray(NSArray* array) {
+  NSUInteger items = [array count];
+  if (!items)
+    return @"";
+
+  NSString* firstString = [array objectAtIndex:0];
+  NSString* prefixSoFar = @"";
+  for (NSUInteger index = 1; index <= [firstString length]; ++index) {
+    NSString* possiblePrefix = [firstString substringToIndex:index];
+    for (NSUInteger item = 1; item < items; ++item) {
+      if (![[array objectAtIndex:item] hasPrefix:possiblePrefix]) {
+        return prefixSoFar;
+      }
+    }
+    prefixSoFar = possiblePrefix;
+  }
+  return prefixSoFar;
+}
 
 }  // namespace
 
@@ -326,7 +347,7 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
       NSLocalizedString([errorName stringByAppendingString:@" Informative"],
                         nil);
 
-  unichar ch = 0x2029;  // U+2029 (PARAGRAPH SEPARATOR)
+  const unichar ch = 0x2029;  // U+2029 (PARAGRAPH SEPARATOR)
   NSString* delim = [NSString stringWithCharacters:&ch length:1];
   NSString* both = [NSString stringWithFormat:@"%@%@%@",
                                               message, delim, informative];
@@ -382,6 +403,18 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
     return [self stickTableObjectValueForRow:row];
   if (tableView == imageTable_)
     return [self imageTableObjectValueForRow:row];
+
+  return nil;
+}
+
+- (NSString*)tableView:(NSTableView *)tableView
+        toolTipForCell:(NSCell *)cell
+                  rect:(NSRectPointer)rect
+           tableColumn:(NSTableColumn *)tableColumn
+                   row:(NSInteger)row
+         mouseLocation:(NSPoint)mouseLocation {
+  if (tableView == imageTable_)
+    return [self imageTableToolTipForRow:row];
 
   return nil;
 }
@@ -450,7 +483,7 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
     NSDictionary* autoupdate = [self parseStanza:[stanzas objectAtIndex:0]
                                    withArrayKeys:nil];
 
-    NSString* configVersion = [autoupdate objectForKey:kConfigVersion];
+    NSString* configVersion = [autoupdate objectForKey:kConfigFileVersion];
     if (configVersion) {
       NSBundle* bundle = [NSBundle mainBundle];
       NSString* bundleVersion =
@@ -591,16 +624,37 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
       initWithString:[image objectForKey:kConfigName]
           attributes:[NSDictionary dictionary]] autorelease];
 
-  NSArray* hwidKey = [image objectForKey:kConfigHWID];
-  if (hwidKey) {
-    NSString* hwidString = [hwidKey componentsJoinedByString:@", "];
-    hwidString = [NSString stringWithFormat:@" (%@)", hwidString];
-    NSDictionary* hwidAttributes = [NSDictionary
+  NSString* desc = [image objectForKey:kConfigDesc];
+  if (!desc) {
+    NSArray* hwidKey = [image objectForKey:kConfigHWID];
+    if (hwidKey) {
+      desc = CommonPrefixOfStringArray(hwidKey);
+      if ([hwidKey count] > 1) {
+        desc = [desc stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceCharacterSet]];
+        const unichar ch = 0x2026;  // U+2026 (HORIZONTAL ELLIPSIS)
+        desc = [desc stringByAppendingFormat:@"%C", ch];
+      }
+    }
+  }
+
+  if (desc) {
+    desc = [NSString stringWithFormat:@" (%@)", desc];
+    NSDictionary* descAttributes = [NSDictionary
         dictionaryWithObject:[NSFont systemFontOfSize:10]
                       forKey:NSFontAttributeName];
-    NSAttributedString* hwidAttrString = [[[NSAttributedString alloc]
-        initWithString:hwidString attributes:hwidAttributes] autorelease];
-    [value appendAttributedString:hwidAttrString];
+    NSAttributedString* descAttrString = [[[NSAttributedString alloc]
+        initWithString:desc attributes:descAttributes] autorelease];
+    [value appendAttributedString:descAttrString];
+  }
+
+  NSString* version = [image objectForKey:kConfigVersion];
+  if (version) {
+    NSString* versionString = [NSString stringWithFormat:@", %@", version];
+    NSAttributedString* versionAttrString = [[[NSAttributedString alloc]
+        initWithString:versionString
+            attributes:[NSDictionary dictionary]] autorelease];
+    [value appendAttributedString:versionAttrString];
   }
 
   NSString* channel = [image objectForKey:kConfigChannel];
@@ -613,6 +667,18 @@ typedef scoped_ptr_malloc<__DADisk, DADiskUnclaimDoer>
   }
 
   return value;
+}
+
+- (NSString*)imageTableToolTipForRow:(NSInteger)row {
+  NSDictionary* image = [images_ objectAtIndex:row];
+
+  NSString* result = nil;
+  NSArray* hwidKey = [image objectForKey:kConfigHWID];
+  if (hwidKey) {
+    result = [hwidKey componentsJoinedByString:@",\n"];
+  }
+
+  return result;
 }
 
 - (BOOL)selectDeviceNextEnabled {

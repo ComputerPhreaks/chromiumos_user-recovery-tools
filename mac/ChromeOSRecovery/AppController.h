@@ -81,6 +81,7 @@
 - (BOOL)isValidFilename:(NSString*)filename;
 - (NSInteger)imageTableRowCount;
 - (id)imageTableObjectValueForRow:(NSInteger)row;
+- (NSString*)imageTableToolTipForRow:(NSInteger)row;
 - (IBAction)selectLocalFile:(id)sender;
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString*)filename;
 - (void)imageSelectionChanged;
