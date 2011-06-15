@@ -105,7 +105,6 @@
 - (IBAction)stickWasDoubleClicked:(id)sender;
 - (BOOL)selectUSBStickNext;
 - (NSString*)descriptionForDisk:(DADiskRef)disk;
-- (NSString*)sizeStringForValue:(double)size;
 
 // Tab: Work
 - (IBAction)knockItOff:(id)sender;

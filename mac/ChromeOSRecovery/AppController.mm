@@ -201,6 +201,27 @@ NSString* CommonPrefixOfStringArray(NSArray* array) {
   return prefixSoFar;
 }
 
+NSString* SizeStringForValue(double size) {
+  NSArray* sizes = [NSArray arrayWithObjects:
+                    NSLocalizedString(@"Size Bytes", nil),
+                    NSLocalizedString(@"Size Kilobytes", nil),
+                    NSLocalizedString(@"Size Megabytes", nil),
+                    NSLocalizedString(@"Size Gigabytes", nil),
+                    NSLocalizedString(@"Size Terabytes", nil),
+                    NSLocalizedString(@"Size Petabytes", nil),
+                    nil];
+
+  unsigned int dimension = 0;
+  const int kKilo = 1000;  // we're doing New Apple Style sizes
+  while (size > kKilo && dimension < [sizes count] - 1) {
+    size /= kKilo;
+    dimension++;
+  }
+
+  return [NSString stringWithFormat:@"%.2f%@",
+          size, [sizes objectAtIndex:dimension]];
+}
+
 }  // namespace
 
 @implementation AppController
@@ -894,7 +915,7 @@ NSString* CommonPrefixOfStringArray(NSArray* array) {
   CFRelease(info);
 
   if (diskSize < imageSize_) {
-    NSString* imageSizeString = [self sizeStringForValue:imageSize_];
+    NSString* imageSizeString = SizeStringForValue(imageSize_);
     [self whineAtUser:@"TooSmallAlert", desc, imageSizeString];
     return NO;
   }
@@ -938,25 +959,10 @@ NSString* CommonPrefixOfStringArray(NSArray* array) {
   double size = [DictLookup(info, kDADiskDescriptionMediaSizeKey) doubleValue];
 
   NSString* desc = [NSString stringWithFormat:@"%@ %@ (%@)",
-      vendor, model, [self sizeStringForValue:size]];
+      vendor, model, SizeStringForValue(size)];
   CFRelease(info);
 
   return desc;
-}
-
-- (NSString*)sizeStringForValue:(double)size {
-  NSArray* sizes = [NSArray arrayWithObjects:
-                    @"B", @"KB", @"MB", @"GB", @"TB", @"PB", nil];
-
-  unsigned int dimension = 0;
-  const int kKilo = 1000;  // we're doing New Apple Style sizes
-  while (size > kKilo && dimension < [sizes count] - 1) {
-    size /= kKilo;
-    dimension++;
-  }
-
-  return [NSString stringWithFormat:@"%.2f %@",
-          size, [sizes objectAtIndex:dimension]];
 }
 
 #pragma mark Work
