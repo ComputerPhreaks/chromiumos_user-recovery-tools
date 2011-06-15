@@ -242,9 +242,20 @@ NSString* CommonPrefixOfStringArray(NSArray* array) {
                                CFRunLoopGetMain(),
                                kCFRunLoopDefaultMode);
 
+  // Flip text fields if RTL.
+  if ([NSLocalizedString(@"UI Is RTL", nil) isEqualToString:@"YES"]) {
+    [welcomeText_ setAlignment:NSRightTextAlignment];
+    [selectStickText_ setAlignment:NSRightTextAlignment];
+    [statusLine_ setAlignment:NSRightTextAlignment];
+    [congratsText_ setAlignment:NSRightTextAlignment];
+  }
 
   [window_ center];
-  [window_ makeKeyAndOrderFront:self];
+  // The order in which objects are woken from the nib is undefined; if the
+  // window is shown now it may not yet be localized. Wait.
+  [window_ performSelector:@selector(makeKeyAndOrderFront:)
+                withObject:self
+                afterDelay:0];
 
   [self loadConfig];
 }

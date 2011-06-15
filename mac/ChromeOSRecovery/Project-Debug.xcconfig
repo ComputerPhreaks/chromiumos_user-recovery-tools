@@ -2,5 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// This is a placeholder file. Internally, this will be replaced with a config
-// file that allows the automated build system to build this.
+// This is a placeholder file, serving two purposes.
+//
+// First, this specifies the location of Google Toolbox for Mac. To build,
+// download a copy of Google Toolbox for Mac from
+// <http://code.google.com/p/google-toolbox-for-mac/>, and adjust the following
+// variable to point to the directory.
+
+GOOGLE_TOOLBOX_FOR_MAC_ROOT = /gtm/path/goes/here
+
+// Force C99 dialect, required by GTM.
+GCC_C_LANGUAGE_STANDARD = c99
+
+// Second, this file is replaced internally with a config file that allows
+// the automated build system to build this.

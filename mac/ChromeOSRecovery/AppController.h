@@ -15,9 +15,11 @@
   IBOutlet NSTabView* tabView_;
 
   // Tab: Select device model
+  IBOutlet NSTextField* welcomeText_;
   IBOutlet NSTableView* imageTable_;
 
   // Tab: Select USB stick
+  IBOutlet NSTextField* selectStickText_;
   IBOutlet NSTableView* stickTable_;
 
   // Tab: Work
@@ -25,6 +27,7 @@
   IBOutlet NSProgressIndicator* progressIndicator_;
 
   // Tab: Done
+  IBOutlet NSTextField* congratsText_;
 
   // Other stuff
   NSURLConnection* configConnection_;

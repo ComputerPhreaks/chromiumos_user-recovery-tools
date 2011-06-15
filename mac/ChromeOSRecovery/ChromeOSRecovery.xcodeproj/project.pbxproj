@@ -29,6 +29,9 @@
 		8238732012B19C60003AEA9C /* DockTile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8238731F12B19C60003AEA9C /* DockTile.mm */; };
 		8238734D12B1A773003AEA9C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8238734C12B1A773003AEA9C /* Carbon.framework */; };
 		825C0A5013A6961A000460A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 825C0A4F13A6961A000460A4 /* MainMenu.xib */; };
+		82EDB4DC13A7F2E50002BB45 /* GTMUILocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4D913A7F2E50002BB45 /* GTMUILocalizer.m */; };
+		82EDB4DD13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4DB13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m */; };
+		82EDB4F213A7F3AB0002BB45 /* GTMNSNumber+64Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4F113A7F3AB0002BB45 /* GTMNSNumber+64Bit.m */; };
 		8D11072D0486CEB800E47090 /* ChromeOSRecoveryMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* ChromeOSRecoveryMain.m */; settings = {ATTRIBUTES = (); }; };
 		D4A6C9B909479B9200354625 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4A6C9B709479B9200354625 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -58,6 +61,8 @@
 		8238731E12B19C60003AEA9C /* DockTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTile.h; sourceTree = "<group>"; };
 		8238731F12B19C60003AEA9C /* DockTile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DockTile.mm; sourceTree = "<group>"; };
 		8238734C12B1A773003AEA9C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		825AC99A13A81758002B1BDE /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = Resources/el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		825AC99B13A81758002B1BDE /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = Resources/el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		825C0A4F13A6961A000460A4 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainMenu.xib; path = Resources/MainMenu.xib; sourceTree = "<group>"; };
 		825C0A5513A6962E000460A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		825C0A5D13A69634000460A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -141,6 +146,13 @@
 		825C0AF613A69D55000460A4 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = Resources/zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		825C0AF713A69D55000460A4 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = Resources/zh_TW.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		825C0AF813A69D55000460A4 /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = Resources/zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
+		82EDB4D813A7F2E50002BB45 /* GTMUILocalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMUILocalizer.h; path = AppKit/GTMUILocalizer.h; sourceTree = "<group>"; };
+		82EDB4D913A7F2E50002BB45 /* GTMUILocalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMUILocalizer.m; path = AppKit/GTMUILocalizer.m; sourceTree = "<group>"; };
+		82EDB4DA13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMUILocalizerAndLayoutTweaker.h; path = AppKit/GTMUILocalizerAndLayoutTweaker.h; sourceTree = "<group>"; };
+		82EDB4DB13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMUILocalizerAndLayoutTweaker.m; path = AppKit/GTMUILocalizerAndLayoutTweaker.m; sourceTree = "<group>"; };
+		82EDB4E713A7F3950002BB45 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		82EDB4F013A7F3AB0002BB45 /* GTMNSNumber+64Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSNumber+64Bit.h"; path = "Foundation/GTMNSNumber+64Bit.h"; sourceTree = "<group>"; };
+		82EDB4F113A7F3AB0002BB45 /* GTMNSNumber+64Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSNumber+64Bit.m"; path = "Foundation/GTMNSNumber+64Bit.m"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Chrome OS Image Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chrome OS Image Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A6C9A709479AD300354625 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A6C9B309479B5A00354625 /* Sources */,
+				82EDB4CD13A7F28C0002BB45 /* Google Toolbox for Mac */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				82122FD6131D94670054A137 /* Configuration */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -209,6 +222,20 @@
 			);
 			name = Configuration;
 			sourceTree = "<group>";
+		};
+		82EDB4CD13A7F28C0002BB45 /* Google Toolbox for Mac */ = {
+			isa = PBXGroup;
+			children = (
+				82EDB4E713A7F3950002BB45 /* GTMDefines.h */,
+				82EDB4F013A7F3AB0002BB45 /* GTMNSNumber+64Bit.h */,
+				82EDB4F113A7F3AB0002BB45 /* GTMNSNumber+64Bit.m */,
+				82EDB4D813A7F2E50002BB45 /* GTMUILocalizer.h */,
+				82EDB4D913A7F2E50002BB45 /* GTMUILocalizer.m */,
+				82EDB4DA13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.h */,
+				82EDB4DB13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m */,
+			);
+			name = "Google Toolbox for Mac";
+			sourceTree = GOOGLE_TOOLBOX_FOR_MAC_ROOT;
 		};
 		D4A6C9B309479B5A00354625 /* Sources */ = {
 			isa = PBXGroup;
@@ -301,6 +328,7 @@
 				vi,
 				zh_CN,
 				zh_TW,
+				el,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* ChromeOSRecovery */;
 			projectDirPath = "";
@@ -334,6 +362,9 @@
 				8D11072D0486CEB800E47090 /* ChromeOSRecoveryMain.m in Sources */,
 				821E4E5112A6A8DE002EF1C3 /* AppController.mm in Sources */,
 				8238732012B19C60003AEA9C /* DockTile.mm in Sources */,
+				82EDB4DC13A7F2E50002BB45 /* GTMUILocalizer.m in Sources */,
+				82EDB4DD13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m in Sources */,
+				82EDB4F213A7F3AB0002BB45 /* GTMNSNumber+64Bit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +388,7 @@
 				825C0A9D13A697E2000460A4 /* cs */,
 				825C0AA013A69810000460A4 /* da */,
 				825C0AA413A69862000460A4 /* de */,
+				825AC99B13A81758002B1BDE /* el */,
 				825C0AA613A698DA000460A4 /* en_GB */,
 				825C0A5D13A69634000460A4 /* en */,
 				825C0AB813A69A11000460A4 /* es_419 */,
@@ -405,6 +437,7 @@
 				825C0A9C13A697E2000460A4 /* cs */,
 				825C0A9F13A69810000460A4 /* da */,
 				825C0AA313A69862000460A4 /* de */,
+				825AC99A13A81758002B1BDE /* el */,
 				825C0AA513A698DA000460A4 /* en_GB */,
 				825C0A5513A6962E000460A4 /* en */,
 				825C0AB713A69A11000460A4 /* es_419 */,
