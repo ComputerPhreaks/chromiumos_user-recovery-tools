@@ -453,6 +453,8 @@ NSString* SizeStringForValue(double size) {
 
 #pragma mark Select Device
 
+@synthesize loadingConfigFinished = loadingConfigFinished_;
+
 - (void)loadConfig {
   NSBundle* bundle = [NSBundle mainBundle];
   NSString* configString =
@@ -502,6 +504,7 @@ NSString* SizeStringForValue(double size) {
   [self parseConfig:configString];
 
   [imageTable_ reloadData];
+  self.loadingConfigFinished = YES;
 }
 
 - (void)parseConfig:(NSString*)configString {

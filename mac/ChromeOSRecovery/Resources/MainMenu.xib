@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="106"/>
-			<integer value="208"/>
+			<integer value="366"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -72,6 +72,15 @@
 												<int key="NSvFlags">268</int>
 												<object class="NSMutableArray" key="NSSubviews">
 													<bool key="EncodedWithXMLCoder">YES</bool>
+													<object class="NSProgressIndicator" id="1026055329">
+														<reference key="NSNextResponder" ref="189345852"/>
+														<int key="NSvFlags">1292</int>
+														<object class="NSPSMatrix" key="NSDrawMatrix"/>
+														<string key="NSFrame">{{330, 88}, {32, 32}}</string>
+														<reference key="NSSuperview" ref="189345852"/>
+														<int key="NSpiFlags">20490</int>
+														<double key="NSMaxValue">100</double>
+													</object>
 													<object class="NSCustomView" id="889236912">
 														<reference key="NSNextResponder" ref="189345852"/>
 														<int key="NSvFlags">292</int>
@@ -1231,6 +1240,42 @@
 					</object>
 					<int key="connectionID">365</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: loadingConfigFinished</string>
+						<reference key="source" ref="1026055329"/>
+						<reference key="destination" ref="685973310"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1026055329"/>
+							<reference key="NSDestination" ref="685973310"/>
+							<string key="NSLabel">hidden: loadingConfigFinished</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">loadingConfigFinished</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">368</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">animate: loadingConfigFinished</string>
+						<reference key="source" ref="1026055329"/>
+						<reference key="destination" ref="685973310"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1026055329"/>
+							<reference key="NSDestination" ref="685973310"/>
+							<string key="NSLabel">animate: loadingConfigFinished</string>
+							<string key="NSBinding">animate</string>
+							<string key="NSKeyPath">loadingConfigFinished</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">371</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1581,6 +1626,7 @@
 							<reference ref="426282770"/>
 							<reference ref="889236912"/>
 							<reference ref="152421981"/>
+							<reference ref="1026055329"/>
 						</object>
 						<reference key="parent" ref="774906255"/>
 					</object>
@@ -1890,6 +1936,11 @@
 						<reference key="object" ref="1023790402"/>
 						<reference key="parent" ref="622521827"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">366</int>
+						<reference key="object" ref="1026055329"/>
+						<reference key="parent" ref="189345852"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2011,6 +2062,8 @@
 					<string>348.IBViewBoundsToFrameTransform</string>
 					<string>352.IBPluginDependency</string>
 					<string>355.IBPluginDependency</string>
+					<string>366.IBPluginDependency</string>
+					<string>366.IBViewBoundsToFrameTransform</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
 					<string>56.IBPluginDependency</string>
@@ -2184,6 +2237,10 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDqQAAwvwAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -2212,7 +2269,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">365</int>
+			<int key="maxID">371</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

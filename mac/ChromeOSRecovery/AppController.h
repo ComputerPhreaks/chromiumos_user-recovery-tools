@@ -30,6 +30,7 @@
   IBOutlet NSTextField* congratsText_;
 
   // Other stuff
+  BOOL loadingConfigFinished_;
   NSURLConnection* configConnection_;
   NSMutableData* configData_;
   NSArray* images_;  // Array of dictionary of info
@@ -74,6 +75,7 @@
 
 // Tab: Select device model
 @property (nonatomic, readonly) BOOL selectDeviceNextEnabled;
+@property (nonatomic) BOOL loadingConfigFinished;
 
 - (void)loadConfig;
 - (void)parseConfig:(NSString*)configString;
