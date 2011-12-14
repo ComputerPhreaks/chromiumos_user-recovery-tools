@@ -1,0 +1,326 @@
+LANGUAGE LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "このツールを使用して、Chromebook を復旧するためのリカバリ SD カードまたはリカバリ USB メモリ スティックを作成することができます。",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "お使いの Chromebook のモデルを選択してください。",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "このツールを使用して、Chromebook を復旧するためのリカバリ SD カードまたはリカバリ USB メモリ スティックを作成することができます。",IDC_STATIC,7,7,366,20
+    LTEXT           "使用するリムーバブル ストレージ デバイスを選択してください。",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "警告メッセージが挿入されます。実際のテキストは実行時に決定されます。",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Chrome OS リカバリ設定をダウンロードしています...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "ステータス",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "残り時間:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "キャンセル",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "消去する",IDOK,126,68,50,14
+    PUSHBUTTON      "消去しない",IDCANCEL,180,68,50,14
+    LTEXT           "実行時に消去の確認メッセージが設定されます",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "メディア上の現在のデータはすべて完全に消去されます。この操作は元に戻せません。",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "このツールを使用して、Chromebook を復旧するためのリカバリ SD カードまたはリカバリ USB メモリ スティックを作成することができます。",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "メディアの準備ができました。システムからメディアを取り外すことができます。",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "このツールを使用して、Chromebook を復旧するためのリカバリ SD カードまたはリカバリ USB メモリ スティックを作成することができます。",IDC_STATIC,7,7,366,20
+    LTEXT           "実行時にメッセージが設定されます。",IDC_MESSAGE,7,33,366,10
+    LTEXT           "ステータス",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "残り時間:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "ChromeOSRecovery モジュール"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Copyright 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "ChromeOSRecovery モジュール"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Chrome OS リカバリ メディアを作成"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "ホスト %s を解決しています..."
+    IDS_STATUS_NAME_RESOLVED "ホスト %s を解決しました"
+    IDS_STATUS_CONNECTING_TO_SERVER "サーバー %s に接続しています..."
+    IDS_STATUS_CONNECTED_TO_SERVER "サーバー %s に接続しました"
+    IDS_STATUS_CLOSING_CONNECTION "サーバー %s との接続を解除しています..."
+    IDS_STATUS_CONNECTION_CLOSED "サーバー %s との接続を解除しました"
+    IDS_STATUS_SENDING_REQUEST "リクエストを送信しています..."
+    IDS_STATUS_REQUEST_SENT "リクエストを送信しました"
+    IDS_STATUS_REQUEST_ERROR "リクエスト エラーが発生しました"
+    IDS_STATUS_REDIRECT     "リダイレクトしています..."
+    IDS_STATUS_DOWNLOADING  "%s / %s ダウンロード済み"
+    IDS_STATUS_DOWNLOAD_COMPLETE "ダウンロードが完了しました"
+    IDS_STATUS_SENDREQUEST_COMPLETE "リクエストが完了しました"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Chrome OS リカバリ設定をダウンロードしています..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "リカバリ イメージをダウンロードしています..."
+    IDS_WRITING_RECOVERY_IMAGE "リカバリ イメージを書き込んでいます..."
+    IDS_WRITING_IMAGE       "USB ディスクにイメージを書き込んでいます。しばらくお待ちください。"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "デバイス"
+    IDS_DEVICES_LIST_COLUMN_DESC "説明"
+    IDS_LOCAL_IMAGE              "ローカル イメージ"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "名前"
+    IDS_USB_LIST_COLUMN_SIZE "サイズ"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "%s 上のファイルはすべて消去されます。"
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "このデバイスの容量は %s です。容量が 4 GB 以上の SD カードまたは USB メモリ スティックを挿入してください。"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "%s / %s 解凍済み"
+    IDS_STATUS_UNZIP_COMPLETE "解凍が完了しました"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "%s / %s 検証済み"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "%s / %s コピー済み"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Chrome OS リカバリ イメージの作成をキャンセルしてもよろしいですか？"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "内部エラーが発生しました。"
+    IDS_ERROR_FAILED_OPEN_FILE "ファイル %s を開くことができませんでした（%d）。"
+    IDS_ERROR_FAILED_READ_FILE "ファイル %s を読み取ることができませんでした（%d）。"
+    IDS_ERROR_FAILED_WRITE_FILE "ファイル %s に書き込むことができませんでした（%d）。"
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "ダウンロードした zip ファイルにファイル %s がありませんでした（%d）。"
+    IDS_ERROR_FAILED_UNZIP_FILE "ファイル %s を展開できませんでした（%d）。"
+    IDS_ERROR_FAILED_CONNECT "%s:%d に接続できませんでした（%d）。"
+    IDS_ERROR_FAILED_GET    "%s を取得できませんでした（%d）。"
+    IDS_ERROR_FAILED_SEND_REQUEST "リクエストを送信できませんでした（%d）。"
+    IDS_ERROR_FAILED_DOWNLOAD "イメージをダウンロードできませんでした（%d）。"
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "現在、リカバリ イメージを使用できません（%d）。"
+    IDS_ERROR_FAILED_VERIFY "ダウンロードしたイメージは破損しています（%d）。"
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "ファイル %s の非同期入出力リクエストの待機中にエラーが発生しました（%d、%d）。"
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "SD カードまたは USB メモリ スティックを挿入してください。デバイスの容量は 4 GB 以上である必要があります。"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "残り時間: %s"
+    IDS_TIME_REMAINING_CALCULATING "計算しています..."
+    IDS_DAY                 "日"
+    IDS_DAYS                "日"
+    IDS_HOUR                "時間"
+    IDS_HOURS               "時間"
+    IDS_MINUTE              "分"
+    IDS_MINUTES             "分"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "秒"
+    IDS_SECONDS             "秒"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "詳細は以下のログ ファイルをご覧ください。このアプリケーションを閉じる前に、必ずそのファイルをコピーしてください。\r\n\r\n%s"
+END

@@ -1,0 +1,326 @@
+LANGUAGE LANG_VIETNAMESE, SUBLANG_VIETNAMESE_VIETNAM
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Công cụ này cho phép bạn tạo thẻ SD hoặc bộ nhớ USB khôi phục để phục hồi Chromebook của bạn.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Chọn mẫu Chromebook mà bạn có.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Công cụ này cho phép bạn tạo thẻ SD hoặc bộ nhớ USB khôi phục để phục hồi Chromebook của bạn.",IDC_STATIC,7,7,366,20
+    LTEXT           "Chọn thiết bị lưu trữ di động để sử dụng.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Nội dung cảnh báo xuất hiện tại đây. Nội dung thực thế được xác định vào thời gian chạy.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Đang tải xuống cấu hình khôi phục Chrome OS...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Trạng thái",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Thời gian còn lại:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Hủy",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Xóa",IDOK,126,68,50,14
+    PUSHBUTTON      "Không xóa",IDCANCEL,180,68,50,14
+    LTEXT           "Xóa xác nhận thông báo được thiết lập vào thời gian chạy",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Tất cả dữ liệu đang xuất hiện sẽ bị mất vĩnh viễn. Bạn không thể hoàn tác tác vụ này.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Công cụ này cho phép bạn tạo thẻ SD hoặc bộ nhớ USB khôi phục để phục hồi Chromebook của bạn.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Thiết bị của bạn đã sẵn sàng. Bây giờ, bạn có thể tháo khỏi hệ thống.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Công cụ này cho phép bạn tạo thẻ SD hoặc bộ nhớ USB khôi phục để phục hồi Chromebook của bạn.",IDC_STATIC,7,7,366,20
+    LTEXT           "Thông báo được thiết lập vào thời gian chạy.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Trạng thái",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Thời gian còn lại:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "Mô-đun ChromeOSRecovery"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Bản quyền 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "Mô-đun ChromeOSRecovery"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Tạo phương tiện khôi phục Chrome OS"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Đang khắc phục máy chủ %s..."
+    IDS_STATUS_NAME_RESOLVED "Đã khắc phục được máy chủ %s"
+    IDS_STATUS_CONNECTING_TO_SERVER "Đang kết nối với máy chủ %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Đã kết nối với máy chủ %s"
+    IDS_STATUS_CLOSING_CONNECTION "Đang đóng kết nối với máy chủ %s..."
+    IDS_STATUS_CONNECTION_CLOSED "Đã đóng kết nối với máy chủ %s"
+    IDS_STATUS_SENDING_REQUEST "Đang gửi yêu cầu..."
+    IDS_STATUS_REQUEST_SENT "Đã gửi yêu cầu"
+    IDS_STATUS_REQUEST_ERROR "Lỗi yêu cầu"
+    IDS_STATUS_REDIRECT     "Đang chuyển hướng..."
+    IDS_STATUS_DOWNLOADING  "Đã tải xuống %s trong tổng số %s"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Tải xuống hoàn tất"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Đã hoàn tất yêu cầu thành công"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Đang tải xuống cấu hình khôi phục Chrome OS..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Đang tải xuống hình ảnh khôi phục..."
+    IDS_WRITING_RECOVERY_IMAGE "Đang ghi hình ảnh khôi phục..."
+    IDS_WRITING_IMAGE       "Vui lòng đợi trong khi chúng tôi ghi hình ảnh vào ổ đĩa USB của bạn."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Thiết bị"
+    IDS_DEVICES_LIST_COLUMN_DESC "Mô tả"
+    IDS_LOCAL_IMAGE              "Hình ảnh cục bộ"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Tên"
+    IDS_USB_LIST_COLUMN_SIZE "Kích thước"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Tất cả các tệp trên %s sẽ bị xóa."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Dung lượng của thiết bị là %s. Vui lòng cắm thẻ SD hoặc bộ nhớ USB có dung lượng tối thiểu là 4GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "Đã giải nén %s trong tổng số %s"
+    IDS_STATUS_UNZIP_COMPLETE "Giải nén hoàn tất"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "Đã xác minh %s trong tổng số %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "Đã sao chép %s trong tổng số %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Bạn có chắc chắn muốn hủy quá trình tạo hình ảnh khôi phục Chrome OS không?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Đã gặp phải lỗi nội bộ."
+    IDS_ERROR_FAILED_OPEN_FILE "Không thể mở tệp %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Không thể đọc từ tệp %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Không thể ghi vào tệp %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Không thể tìm thấy tệp %s trong tệp nén tải xuống (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Không thể giải nén tệp %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Không thể kết nối với %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Không thể truy lục %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Không thể gửi yêu cầu (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Không thể tải hình ảnh xuống ( %d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Hình ảnh khôi phục không có sẵn vào thời điểm này (%d)."
+    IDS_ERROR_FAILED_VERIFY "Hình ảnh đã tải xuống bị hỏng (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "Đã gặp phải lỗi trong khi đợi yêu cầu I/O không đồng bộ cho tệp %s (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Cắm thẻ SD hoặc bộ nhớ USB. Thiết bị phải có dung lượng từ 4GB trở lên."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Thời gian còn lại: %s"
+    IDS_TIME_REMAINING_CALCULATING "Đang tính toán..."
+    IDS_DAY                 "ngày"
+    IDS_DAYS                "ngày"
+    IDS_HOUR                "giờ"
+    IDS_HOURS               "giờ"
+    IDS_MINUTE              "phút"
+    IDS_MINUTES             "phút"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "giây"
+    IDS_SECONDS             "giây"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Thông tin khác có trong tệp nhật ký bên dưới. Đảm bảo rằng bạn sao chép tệp này trước khi đóng ứng dụng này.\r\n\r\n%s"
+END

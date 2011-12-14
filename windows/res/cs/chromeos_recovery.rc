@@ -1,0 +1,326 @@
+LANGUAGE LANG_CZECH, SUBLANG_CZECH_CZECH_REPUBLIC
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Tento n·stroj umoûÚuje vytvo¯it kartu SD nebo pamÏùovou jednotku USB pro obnovenÌ Chromebooku.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Vyberte model Chromebooku, kter˝ vlastnÌte.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Tento n·stroj umoûÚuje vytvo¯it kartu SD nebo pamÏùovou jednotku USB pro obnovenÌ Chromebooku.",IDC_STATIC,7,7,366,20
+    LTEXT           "Vyberte vymÏnitelnÈ ˙loûnÈ za¯ÌzenÌ, kterÈ chcete pouûÌt.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Sem pat¯Ì text upozornÏnÌ. SkuteËn˝ text se urËÌ p¯i spuötÏnÌ.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Stahov·nÌ konfiguracÌ pro obnovu systÈmu Chrome OS...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Stav",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Zb˝vajÌcÌ Ëas:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Zruöit",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Smazat",IDOK,126,68,50,14
+    PUSHBUTTON      "Nemazat",IDCANCEL,180,68,50,14
+    LTEXT           "Zpr·va o potvrzenÌ vymaz·nÌ se nastavÌ p¯i spuötÏnÌ",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Veöker· data, kter· jsou na tÈto jednotce uloûena, budou nen·vratnÏ ztracena. Tuto akci nelze vr·tit zpÏt.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Tento n·stroj umoûÚuje vytvo¯it kartu SD nebo pamÏùovou jednotku USB pro obnovenÌ Chromebooku.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "MÈdium je p¯ipraveno. NynÌ je m˘ûete ze systÈmu odebrat.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Tento n·stroj umoûÚuje vytvo¯it kartu SD nebo pamÏùovou jednotku USB pro obnovenÌ Chromebooku.",IDC_STATIC,7,7,366,20
+    LTEXT           "Zpr·va se nastavÌ p¯i spuötÏnÌ.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Stav",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Zb˝vajÌcÌ Ëas:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "Modul ChromeOSRecovery"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Copyright 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "Modul ChromeOSRecovery"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Vytvo¯it mÈdium k obnovenÌ systÈmu Chrome OS"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Vyhled·v·nÌ hostitele %s..."
+    IDS_STATUS_NAME_RESOLVED "Nalezen hostitel %s"
+    IDS_STATUS_CONNECTING_TO_SERVER "P¯ipojov·nÌ k serveru %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "P¯ipojeno k serveru %s"
+    IDS_STATUS_CLOSING_CONNECTION "UkonËov·nÌ p¯ipojenÌ k serveru %s..."
+    IDS_STATUS_CONNECTION_CLOSED "P¯ipojenÌ k serveru %s ukonËeno"
+    IDS_STATUS_SENDING_REQUEST "OdesÌl·nÌ poûadavku..."
+    IDS_STATUS_REQUEST_SENT "Poûadavek odesl·n"
+    IDS_STATUS_REQUEST_ERROR "Chyba poûadavku"
+    IDS_STATUS_REDIRECT     "P¯esmÏrov·nÌ..."
+    IDS_STATUS_DOWNLOADING  "Staûeno %s z %s"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Stahov·nÌ dokonËeno"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Poûadavek byl ˙spÏönÏ dokonËen."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Stahov·nÌ konfiguracÌ pro obnovu systÈmu Chrome OS..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Stahov·nÌ obrazu pro obnovenÌ..."
+    IDS_WRITING_RECOVERY_IMAGE "ProbÌh· z·pis obrazu pro obnovenÌ..."
+    IDS_WRITING_IMAGE       "PoËkejte prosÌm, neû obraz zapÌöeme na disk USB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Za¯ÌzenÌ"
+    IDS_DEVICES_LIST_COLUMN_DESC "Popis"
+    IDS_LOCAL_IMAGE              "MÌstnÌ obraz"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "N·zev"
+    IDS_USB_LIST_COLUMN_SIZE "Velikost"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Vöechny soubory na jednotce %s budou smaz·ny."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Kapacita za¯ÌzenÌ je %s. Vloûte prosÌm kartu SD nebo pamÏùovou jednotku USB s kapacitou nejmÈnÏ 4†GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "Rozbaleno %s z %s"
+    IDS_STATUS_UNZIP_COMPLETE "Rozbalov·nÌ dokonËeno"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "OvÏ¯eno %s z %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "ZkopÌrov·no %s z %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Opravdu chcete zruöit vytvo¯enÌ obrazu pro obnovu operaËnÌho systÈmu Chrome?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Doölo k internÌ chybÏ."
+    IDS_ERROR_FAILED_OPEN_FILE "Nepoda¯ilo se otev¯Ìt soubor %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Nepoda¯ilo se ËÌst ze souboru %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Nepoda¯il se z·pis do souboru %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Ve staûenÈm souboru ZIP (%d) nelze nalÈzt soubor %s."
+    IDS_ERROR_FAILED_UNZIP_FILE "Nepoda¯ilo se dekomprimovat soubor %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Nepoda¯ilo se p¯ipojit ke zdroji %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Nepoda¯ilo se naËÌst soubor %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Nepoda¯ilo se odeslat poûadavek (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Nepoda¯ilo se st·hnout obraz (%d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Obraz pro obnovu nenÌ v tuto chvÌli k dispozici (%d)."
+    IDS_ERROR_FAILED_VERIFY "Staûen˝ obraz je poökozen (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "P¯i Ëek·nÌ na asynchronnÌ poûadavky vstupu a v˝stupu pro soubor %s doölo k chybÏ (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Vloûte kartu SD nebo pamÏùovou jednotku USB. Za¯ÌzenÌ musÌ mÌt kapacitu nejmÈnÏ 4†GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Zb˝vajÌcÌ Ëas: %s"
+    IDS_TIME_REMAINING_CALCULATING "V˝poËet..."
+    IDS_DAY                 "den"
+    IDS_DAYS                "d"
+    IDS_HOUR                "h"
+    IDS_HOURS               "h"
+    IDS_MINUTE              "min"
+    IDS_MINUTES             "min"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "s"
+    IDS_SECONDS             "s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "DalöÌ informace jsou k dispozici v souboru protokolu nÌûe. Neû aplikaci zav¯ete, nezapomeÚte soubor zkopÌrovat.\r\n\r\n%s"
+END

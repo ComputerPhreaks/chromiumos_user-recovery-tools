@@ -1,0 +1,326 @@
+LANGUAGE LANG_ESTONIAN, SUBLANG_ESTONIAN_ESTONIA
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "See tööriist võimaldab teil luua oma Chromebook taastamiseks taaste-SD-kaardi või taaste-USB-mälupulga.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Valige oma Chromebook mudel.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "See tööriist võimaldab teil luua oma Chromebook taastamiseks taaste-SD-kaardi või taaste-USB-mälupulga.",IDC_STATIC,7,7,366,20
+    LTEXT           "Valige kasutamiseks eemaldatav salvestusseade.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Siia tuleb hoiatustekst. Teksti sisu määratakse käitusajal.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Chrome OS-i taastekonfiguratsioonide allalaadimine ...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Olek",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Aega jäänud:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Tühista",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Kustuta",IDOK,126,68,50,14
+    PUSHBUTTON      "Ära kustuta",IDCANCEL,180,68,50,14
+    LTEXT           "Sõnumi kustutamise kinnitus määratakse käitusajal",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Kõik praegu seadmel olevad andmed kustutatakse jäädavalt. Seda toimingut ei saa tagasi võtta.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "See tööriist võimaldab teil luua oma Chromebook taastamiseks taaste-SD-kaardi või taaste-USB-mälupulga.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Andmekandja on valmis. Võite selle süsteemist eemaldada.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "See tööriist võimaldab teil luua oma Chromebook taastamiseks taaste-SD-kaardi või taaste-USB-mälupulga.",IDC_STATIC,7,7,366,20
+    LTEXT           "Sõnum määratakse käitusajal.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Olek",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Aega jäänud:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "ChromeOSRecovery moodul"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Autoriõigus 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "ChromeOSRecovery moodul"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Chrome OS-i taastekandja loomine"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Hosti %s lahendamine ..."
+    IDS_STATUS_NAME_RESOLVED "Host %s lahendatud"
+    IDS_STATUS_CONNECTING_TO_SERVER "Serveriga %s ühendamine ..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Ühendatud serveriga %s"
+    IDS_STATUS_CLOSING_CONNECTION "Ühenduse katkestamine serveriga %s ..."
+    IDS_STATUS_CONNECTION_CLOSED "Ühendus serveriga %s katkestatud ..."
+    IDS_STATUS_SENDING_REQUEST "Päringu saatmine ..."
+    IDS_STATUS_REQUEST_SENT "Päring saadetud"
+    IDS_STATUS_REQUEST_ERROR "Päringu viga"
+    IDS_STATUS_REDIRECT     "Ümbersuunamine ..."
+    IDS_STATUS_DOWNLOADING  "Alla laaditud %s %s-st"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Allalaadimine lõpetatud"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Päring edukalt lõpetatud"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Chrome OS-i taastekonfiguratsioonide allalaadimine ..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Taastekujutise allalaadimine ..."
+    IDS_WRITING_RECOVERY_IMAGE "Taastekujutise kirjutamine ..."
+    IDS_WRITING_IMAGE       "Oodake, kuni kirjutame kujutise teie USB-kettale."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Seade"
+    IDS_DEVICES_LIST_COLUMN_DESC "Kirjeldus"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Nimi"
+    IDS_USB_LIST_COLUMN_SIZE "Suurus"
+    IDS_LOCAL_IMAGE          "Kohalik kujutis"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Kustutatakse kõik seadmel %s olevad failid."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Seadme maht on %s. Sisestage SD-kaart või USB-mälupulk mahuga vähemalt 4 GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "Lahti pakitud %s %s-st"
+    IDS_STATUS_UNZIP_COMPLETE "Lahtipakkimine lõpetatud"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "Kinnitatud %s %s-st"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "Kopeeritud %s %s-st"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Kas soovite kindlasti oma Chrome OS-i taastekujutise loomise tühistada?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Tuvastati sisemine viga."
+    IDS_ERROR_FAILED_OPEN_FILE "Faili %s (%d) avamine nurjus."
+    IDS_ERROR_FAILED_READ_FILE "Faili %s (%d) lugemine nurjus."
+    IDS_ERROR_FAILED_WRITE_FILE "Faili %s (%d) kirjutamine nurjus."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Ei leia faili %s allalaaditud zip-failist (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Faili %s (%d) lahtipakkimine nurjus."
+    IDS_ERROR_FAILED_CONNECT "Ühenduse loomine elemendiga %s:%d (%d) nurjus."
+    IDS_ERROR_FAILED_GET    "Elemendi %s (%d) toomine nurjus."
+    IDS_ERROR_FAILED_SEND_REQUEST "Päringu (%d) saatmine nurjus."
+    IDS_ERROR_FAILED_DOWNLOAD "Kujutise (%d) allalaadimine nurjus."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Kujutise taastefaili pole praegu (%d)."
+    IDS_ERROR_FAILED_VERIFY "Allalaaditud kujutis on rikutud (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "Asünkroonsete I/O päringute ootamisel failile %s (%d, %d) ilmnes viga."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Sisestage SD-kaart või USB-mälupulk. Seadme maht peab olema vähemalt 4 GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Aega jäänud: %s"
+    IDS_TIME_REMAINING_CALCULATING "Arvutamine ..."
+    IDS_DAY                 "päev"
+    IDS_DAYS                "päeva"
+    IDS_HOUR                "tund"
+    IDS_HOURS               "tundi"
+    IDS_MINUTE              "minut"
+    IDS_MINUTES             "minutit"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "sekund"
+    IDS_SECONDS             "sekundit"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Lisateave on saadaval allolevas logifailis. Ärge unustage enne antud rakenduse sulgemist faili kopeerida.\r\n\r\n%s"
+END

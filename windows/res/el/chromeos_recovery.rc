@@ -1,0 +1,326 @@
+LANGUAGE LANG_GREEK, SUBLANG_GREEK_GREECE
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Αυτό το εργαλείο σάς επιτρέπει να δημιουργήσετε κάρτα SD ανάκτησης ή USB memory stick για να επαναφέρετε το Chromebook.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Επιλέξτε το μοντέλο του Chromebook που έχετε.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Αυτό το εργαλείο σάς επιτρέπει να δημιουργήσετε κάρτα SD ανάκτησης ή USB memory stick για να επαναφέρετε το Chromebook.",IDC_STATIC,7,7,366,20
+    LTEXT           "Επιλέξτε να χρησιμοποιήσετε μια αφαιρούμενη συσκευή αποθήκευσης.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Η θέση του κειμένου προειδοποίησης είναι εδώ.  Το πραγματικό κείμενο καθορίστηκε κατά το χρόνο εκτέλεσης.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Λήψη ρυθμίσεων παραμέτρων ανάκτησης του Chrome OS...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Κατάσταση",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Χρόνος που απομένει:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Ακύρωση",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Διαγραφή",IDOK,126,68,50,14
+    PUSHBUTTON      "Να μην γίνει διαγραφή",IDCANCEL,180,68,50,14
+    LTEXT           "Η επιβεβαίωση διαγραφής μηνύματος ορίστηκε κατά το χρόνο εκτέλεσης",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Όλα τα δεδομένα που βρίσκονται προς το παρόν σε αυτό θα χαθούν οριστικά.  Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Αυτό το εργαλείο σάς επιτρέπει να δημιουργήσετε κάρτα SD ανάκτησης ή USB memory stick για να επαναφέρετε το Chromebook.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Τα μέσα σας είναι έτοιμα.  Τώρα μπορείτε να το καταργήσετε από το σύστημά σας.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Αυτό το εργαλείο σάς επιτρέπει να δημιουργήσετε κάρτα SD ανάκτησης ή USB memory stick για να επαναφέρετε το Chromebook.",IDC_STATIC,7,7,366,20
+    LTEXT           "Το μήνυμα ορίστηκε κατά το χρόνο εκτέλεσης.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Κατάσταση",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Χρόνος που απομένει:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "Λειτουργική μονάδα ChromeOSRecovery"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Πνευματικά δικαιώματα 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "Λειτουργική μονάδα ChromeOSRecovery"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Δημιουργία μέσων ανάκτησης Chrome OS"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Επίλυση κεντρικού υπολογιστή %s..."
+    IDS_STATUS_NAME_RESOLVED "Επιλυμένος κεντρικός υπολογιστής %s"
+    IDS_STATUS_CONNECTING_TO_SERVER "Σύνδεση με το διακομιστή %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Συνδέθηκε με το διακομιστή %s"
+    IDS_STATUS_CLOSING_CONNECTION "Κλείσιμο σύνδεσης με το διακομιστή %s..."
+    IDS_STATUS_CONNECTION_CLOSED "Κλειστή σύνδεση με το διακομιστή %s..."
+    IDS_STATUS_SENDING_REQUEST "Αποστολή αιτήματος..."
+    IDS_STATUS_REQUEST_SENT "Το αίτημα στάλθηκε"
+    IDS_STATUS_REQUEST_ERROR "Σφάλμα αιτήματος"
+    IDS_STATUS_REDIRECT     "Ανακατεύθυνση..."
+    IDS_STATUS_DOWNLOADING  "λήφθηκαν %s από %s"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Ολοκλήρωση λήψης"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Το αίτημα ολοκληρώθηκε με επιτυχία"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Λήψη ρυθμίσεων παραμέτρων ανάκτησης του Chrome OS..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Λήψη εικόνας ανάκτησης..."
+    IDS_WRITING_RECOVERY_IMAGE "Εγγραφή εικόνας ανάκτησης..."
+    IDS_WRITING_IMAGE       "Περιμένετε μέχρι να γίνει εγγραφή της εικόνας στο δίσκο USB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Συσκευή"
+    IDS_DEVICES_LIST_COLUMN_DESC "Περιγραφή"
+    IDS_LOCAL_IMAGE              "Τοπική εικόνα"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Όνομα"
+    IDS_USB_LIST_COLUMN_SIZE "Μέγεθος"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Όλα τα αρχεία στο %s θα διαγραφούν."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Η συσκευή έχει χωρητικότητα %s.  Εισαγάγετε μια κάρτα SD ή ένα USB memory stick με χωρητικότητα τουλάχιστον 4 GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "αποσυσκευάστηκαν %s από %s"
+    IDS_STATUS_UNZIP_COMPLETE "Ολοκλήρωση αποσυσκευασίας"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "επαληθεύτηκαν %s από %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "αντιγράφηκαν %s από %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Είστε βέβαιοι ότι θέλετε να ακυρώσετε τη δημιουργία της εικόνας ανάκτησης του Chrome OS;"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Παρουσιάστηκε εσωτερικό σφάλμα."
+    IDS_ERROR_FAILED_OPEN_FILE "Απέτυχε το άνοιγμα του αρχείου %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Απέτυχε η ανάγνωση από το αρχείο %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Απέτυχε η εγγραφή στο αρχείο %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Δεν είναι δυνατή η εύρεση του αρχείου %s στο αρχείο zip λήψης (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Απέτυχε η αποσυμπίεση του αρχείου %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Απέτυχε η σύνδεση στο %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Απέτυχε η ανάκτηση του %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Απέτυχε η αποστολή αιτήματος (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Απέτυχε η λήψη εικόνας ( %d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Προς το παρόν, η εικόνα ανάκτησης δεν είναι διαθέσιμη (%d)."
+    IDS_ERROR_FAILED_VERIFY "Η εικόνα που λήφθηκε είναι κατεστραμμένη (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "Παρουσιάστηκε σφάλμα κατά την αναμονή για ασύγχρονα αιτήματα I/O, για το αρχείο %s (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Εισαγωγή κάρτας SD ή USB memory stick.  Η συσκευή πρέπει να έχει χωρητικότητα 4 GB ή μεγαλύτερη."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Χρόνος που απομένει: %s"
+    IDS_TIME_REMAINING_CALCULATING "Υπολογισμός..."
+    IDS_DAY                 "ημέρα"
+    IDS_DAYS                "ημέρες"
+    IDS_HOUR                "ώρα"
+    IDS_HOURS               "ώρες"
+    IDS_MINUTE              "λεπτό"
+    IDS_MINUTES             "λεπτά"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "δευτερόλεπτο"
+    IDS_SECONDS             "δευτερόλεπτα"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Περισσότερες πληροφορίες είναι διαθέσιμες στο παρακάτω αρχείο καταγραφής.  Βεβαιωθείτε ότι η αντιγραφή του αρχείου θα γίνει πριν από το κλείσιμο αυτής της εφαρμογής.\r\n\r\n%s"
+END

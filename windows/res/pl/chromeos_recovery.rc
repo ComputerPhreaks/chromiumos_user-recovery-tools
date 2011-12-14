@@ -1,0 +1,326 @@
+LANGUAGE LANG_POLISH, SUBLANG_POLISH_POLAND
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "To narzêdzie umo¿liwia utworzenie karty SD (lub urz¹dzenia pamiêci masowej USB) do przywracania dzia³ania Chromebooka z systemem Chrome OS.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Wybierz swój model Chromebooka z systemem Chrome OS.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "To narzêdzie umo¿liwia utworzenie karty SD (lub urz¹dzenia pamiêci masowej USB) do przywracania dzia³ania Chromebooka z systemem Chrome OS.",IDC_STATIC,7,7,366,20
+    LTEXT           "Wybierz wymienne urz¹dzenie pamiêci masowej do u¿ycia.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "W tym miejscu znajdzie siê tekst ostrze¿enia.  Rzeczywisty tekst okreœlany jest w czasie wykonywania.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Pobieranie konfiguracji odtwarzania systemu Chrome OS...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Stan",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Pozosta³y czas:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Anuluj",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Wyczyœæ",IDOK,126,68,50,14
+    PUSHBUTTON      "Nie czyœæ",IDCANCEL,180,68,50,14
+    LTEXT           "Komunikat potwierdzenia operacji czyszczenia ustawiany w czasie wykonywania",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Wszystkie znajduj¹ce siê na noœniku dane zostan¹ trwale utracone.  Tej operacji nie mo¿na cofn¹æ.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "To narzêdzie umo¿liwia utworzenie karty SD (lub urz¹dzenia pamiêci masowej USB) do przywracania dzia³ania Chromebooka z systemem Chrome OS.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Noœnik jest gotowy.  Mo¿esz teraz usun¹æ go z systemu.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "To narzêdzie umo¿liwia utworzenie karty SD (lub urz¹dzenia pamiêci masowej USB) do przywracania dzia³ania Chromebooka z systemem Chrome OS.",IDC_STATIC,7,7,366,20
+    LTEXT           "Komunikat jest ustawiany w czasie wykonywania.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Stan",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Pozosta³y czas:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "Modu³ ChromeOSRecovery"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Copyright 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "Modu³ ChromeOSRecovery"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Utwórz noœnik odtwarzania systemu Chrome OS"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Rozpoznawanie hosta %s..."
+    IDS_STATUS_NAME_RESOLVED "Rozpoznano hosta %s"
+    IDS_STATUS_CONNECTING_TO_SERVER "£¹czenie z serwerem %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Po³¹czono z serwerem %s"
+    IDS_STATUS_CLOSING_CONNECTION "Zamykanie po³¹czenia z serwerem %s..."
+    IDS_STATUS_CONNECTION_CLOSED "Zamkniêto po³¹czenie z serwerem %s"
+    IDS_STATUS_SENDING_REQUEST "Wysy³anie ¿¹dania..."
+    IDS_STATUS_REQUEST_SENT "¯¹danie zosta³o wys³ane"
+    IDS_STATUS_REQUEST_ERROR "B³¹d ¿¹dania"
+    IDS_STATUS_REDIRECT     "Przekierowywanie..."
+    IDS_STATUS_DOWNLOADING  "Pobrano %s z %s"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Pobieranie zakoñczone"
+    IDS_STATUS_SENDREQUEST_COMPLETE "¯¹danie zosta³o pomyœlnie ukoñczone"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Pobieranie konfiguracji odtwarzania systemu Chrome OS..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Pobieranie obrazu odtwarzania..."
+    IDS_WRITING_RECOVERY_IMAGE "Zapisywanie obrazu odtwarzania..."
+    IDS_WRITING_IMAGE       "Czekaj na zapisanie obrazu na dysku USB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Urz¹dzenie"
+    IDS_DEVICES_LIST_COLUMN_DESC "Opis"
+    IDS_LOCAL_IMAGE              "Obraz lokalny"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Nazwa"
+    IDS_USB_LIST_COLUMN_SIZE "Rozmiar"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Wszystkie pliki na urz¹dzeniu %s zostan¹ usuniête."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Urz¹dzenie ma pojemnoœæ %s.  W³ó¿ kartê SD lub urz¹dzenie pamiêci masowej USB o pojemnoœci co najmniej 4 GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "Rozpakowano %s z %s"
+    IDS_STATUS_UNZIP_COMPLETE "Rozpakowywanie zakoñczone"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "Zweryfikowano %s z %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "Skopiowano %s z %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Czy na pewno chcesz anulowaæ tworzenie obrazu odtwarzania systemu Chrome OS?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Napotkano b³¹d wewnêtrzny"
+    IDS_ERROR_FAILED_OPEN_FILE "Nie uda³o siê otworzyæ pliku %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Nie uda³o siê odczytaæ pliku %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Nie uda³o siê zapisaæ do pliku %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Nie mo¿na znaleŸæ pliku %s w pobranym pliku zip (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Nie uda³o siê rozpakowaæ pliku zip %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Nie uda³o siê po³¹czyæ z serwerem %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Nie uda³o siê pobraæ elementu %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Nie uda³o siê wys³aæ ¿¹dania (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Nie uda³o siê pobraæ obrazu (%d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Obraz odtwarzania nie jest w tej chwili dostêpny (%d)."
+    IDS_ERROR_FAILED_VERIFY "Pobrany obraz jest uszkodzony (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "Napotkano b³¹d podczas oczekiwania na asynchroniczne ¿¹dania we/wy dla pliku %s (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "W³ó¿ kartê SD lub urz¹dzenie pamiêci masowej USB.  Urz¹dzenie musi mieæ co najmniej 4 GB pojemnoœci."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Pozosta³y czas: %s"
+    IDS_TIME_REMAINING_CALCULATING "Obliczanie..."
+    IDS_DAY                 "dzieñ"
+    IDS_DAYS                "dni"
+    IDS_HOUR                "godz."
+    IDS_HOURS               "godz."
+    IDS_MINUTE              "min"
+    IDS_MINUTES             "min"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "s"
+    IDS_SECONDS             "s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Wiêcej informacji jest dostêpnych w poni¿szym pliku dziennika.  Pamiêtaj o skopiowaniu tego pliku przed zamkniêciem aplikacji.\r\n\r\n%s"
+END

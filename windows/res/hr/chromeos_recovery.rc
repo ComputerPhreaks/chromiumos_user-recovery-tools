@@ -1,0 +1,326 @@
+LANGUAGE LANG_CROATIAN, SUBLANG_NEUTRAL
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Pomoæu ovog alata možete izraditi SD karticu ili USB memorijski privjesak za oporavak svog Chromebooka.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Odaberite model svog Chromebooka.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Pomoæu ovog alata možete izraditi SD karticu ili USB memorijski privjesak za oporavak svog Chromebooka.",IDC_STATIC,7,7,366,20
+    LTEXT           "Odaberite uklonjivi ureðaj za pohranu",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Tekst upozorenja ide ovdje. Stvarni tekst utvrðen za vrijeme rada.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Preuzimanje konfiguracija za oporavak operativnog sustava Chrome...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Status",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Preostalo vremena:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Odustani",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Izbriši",IDOK,126,68,50,14
+    PUSHBUTTON      "Nemoj brisati",IDCANCEL,180,68,50,14
+    LTEXT           "Potvrda poruke o brisanju postavljena za vrijeme rada",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Svi podaci koji se trenutaèno nalaze na ureðaju bit æe trajno izgubljeni. Tu radnju ne možete poništiti.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Pomoæu ovog alata možete izraditi SD karticu ili USB memorijski privjesak za oporavak svog Chromebooka.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Medij je spreman. Možete ga ukloniti iz sustava.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Pomoæu ovog alata možete izraditi SD karticu ili USB memorijski privjesak za oporavak svog Chromebooka.",IDC_STATIC,7,7,366,20
+    LTEXT           "Poruka je postavljena za vrijeme rada.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Status",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Preostalo vremena:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "Modul ChromeOSRecovery"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Autorska prava 2011."
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "Modul ChromeOSRecovery"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Izrada medija za oporavak operativnog sustava Chrome"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Razrješavanje hosta %s..."
+    IDS_STATUS_NAME_RESOLVED "Razriješeni host %s"
+    IDS_STATUS_CONNECTING_TO_SERVER "Povezivanje s poslužiteljem %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Povezano s poslužiteljem %s"
+    IDS_STATUS_CLOSING_CONNECTION "Zatvaranje veze s poslužiteljem %s..."
+    IDS_STATUS_CONNECTION_CLOSED "Zatvorena veza s poslužiteljem %s..."
+    IDS_STATUS_SENDING_REQUEST "Slanje zahtjeva..."
+    IDS_STATUS_REQUEST_SENT "Zahtjev je poslan"
+    IDS_STATUS_REQUEST_ERROR "Pogreška zahtjeva"
+    IDS_STATUS_REDIRECT     "Preusmjeravanje..."
+    IDS_STATUS_DOWNLOADING  "Preuzeto %s od %s"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Preuzimanje je završeno"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Zahtjev je uspješno dovršen"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Preuzimanje konfiguracija za oporavak operativnog sustava Chrome..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Preuzimanje slike za oporavak..."
+    IDS_WRITING_RECOVERY_IMAGE "Zapisivanje slike za oporavak..."
+    IDS_WRITING_IMAGE       "Prièekajte dok zapisujemo sliku na USB disk."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Ureðaj"
+    IDS_DEVICES_LIST_COLUMN_DESC "Opis"
+    IDS_LOCAL_IMAGE              "Lokalna slika"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Ime"
+    IDS_USB_LIST_COLUMN_SIZE "Velièina"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Sve datoteke na ureðaju %s bit æe izbrisane."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Ureðaj ima kapacitet %s. Umetnite SD karticu ili USB memorijski privjesak kapaciteta od najmanje 4GB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "Otpakirano %s od %s"
+    IDS_STATUS_UNZIP_COMPLETE "Otpakiravanje je dovršeno"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "Potvrðeno %s od %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "Kopirano %s od %s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Jeste li sigurni da želite otkazati izradu slike za oporavak operativnog sustava Chrome?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "Došlo je do interne pogreške."
+    IDS_ERROR_FAILED_OPEN_FILE "Nije uspjelo otvaranje datoteke %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Nije uspjelo èitanje iz datoteke %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Nije uspjelo zapisivanje u datoteku %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Nije moguæe pronaæi datoteku %s u preuzetoj zip datoteci (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Nije uspjela dekompresija datoteke %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Nije uspjelo povezivanje s %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Nije uspjelo dohvaæanje %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Nije uspjelo slanje zahtjeva (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Nije uspjelo preuzimanje slike ( %d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Slika za oporavak trenutaèno nije dostupna (%d)."
+    IDS_ERROR_FAILED_VERIFY "Preuzeta slika je ošteæena (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "Došlo je do pogreške za vrijeme èekanja asinkronih zahtjeva I/O za datoteku %s (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Umetnite SD karticu ili USB memorijski privjesak. Ureðaj mora biti kapaciteta 4GB ili veæi."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Preostalo vremena: %s"
+    IDS_TIME_REMAINING_CALCULATING "Kalkuliranje..."
+    IDS_DAY                 "d"
+    IDS_DAYS                "d"
+    IDS_HOUR                "h"
+    IDS_HOURS               "h"
+    IDS_MINUTE              "min"
+    IDS_MINUTES             "min"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "sek."
+    IDS_SECONDS             "sek."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Više informacija dostupno je u datoteci dnevnika u nastavku. Svakako kopirajte datoteku prije zatvaranja ove aplikacije.\r\n\r\n%s"
+END

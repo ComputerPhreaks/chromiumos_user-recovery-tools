@@ -1,0 +1,326 @@
+LANGUAGE LANG_ROMANIAN, SUBLANG_ROMANIAN_ROMANIA
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_SELECT_DEVICE DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Acest instrument vã permite sã creaþi un card SD sau un stick USB de memorie de recuperare pentru a restabili laptopul Chromebook.",IDC_INTRO_TEXT,7,7,247,20
+    LTEXT           "Selectaþi modelul de laptop Chromebook pe care îl aveþi.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_DEVICES_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,100
+    COMBOBOX        IDC_LANGUAGES,258,7,115,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROPPAGE_SELECT_USB DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Acest instrument vã permite sã creaþi un card SD sau un stick USB de memorie de recuperare pentru a restabili laptopul Chromebook.",IDC_STATIC,7,7,366,20
+    LTEXT           "Selectaþi un dispozitiv de stocare amovibil pentru utilizare.",IDC_STATIC,7,33,366,10
+    CONTROL         "",IDC_USB_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,53,366,80
+    ICON            "",IDC_WARNING_ICON,7,138,21,20,SS_CENTERIMAGE
+    LTEXT           "Textul de avertisment apare aici. Textul exact se stabileºte la momentul execuþiei.",IDC_WARNING_TEXT,35,145,338,13
+END
+
+IDD_DOWNLOAD_CONFIG DIALOGEX 0, 0, 249, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Se descarcã configuraþiile de recuperare pentru sistemul de operare Chrome...",IDC_MESSAGE,7,7,235,17
+    LTEXT           "Stare",IDC_STATUS,7,30,235,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,40,235,14
+    LTEXT           "Timp rãmas:",IDC_TIME_REMAINING,7,56,235,10
+    PUSHBUTTON      "Anulaþi",IDCANCEL,192,68,50,14
+END
+
+IDD_ERASE_CONFIRM DIALOGEX 0, 0, 237, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "ªtergeþi",IDOK,126,68,50,14
+    PUSHBUTTON      "Nu ºtergeþi",IDCANCEL,180,68,50,14
+    LTEXT           "ªtergeþi confirmarea mesajului setat în momentul execuþiei",IDC_CONFIRM_MSG,38,7,192,29
+    ICON            "",IDC_WARNING_ICON,7,7,21,20,SS_REALSIZEIMAGE
+    LTEXT           "Veþi pierde definitiv toate datele aflate în prezent pe acesta. Nu puteþi sã anulaþi aceastã acþiune.",IDC_STATIC,38,42,192,17
+END
+
+IDD_PROPPAGE_FINISH DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Acest instrument vã permite sã creaþi un card SD sau un stick USB de memorie de recuperare pentru a restabili laptopul Chromebook.",IDC_STATIC,7,7,366,20
+    ICON            IDI_CHECKMARK,IDC_STATIC,50,75,23,22,SS_REALSIZEIMAGE
+    LTEXT           "Suportul dvs. este gata. Acum îl puteþi elimina din sistem.",IDC_COMPLETION_MESSAGE,70,78,283,10
+    LTEXT           "link-to-how-to-use",IDC_HOW_TO_USE_LINK,7,51,366,8,NOT WS_VISIBLE
+END
+
+IDD_PROPPAGE_PROGRESS DIALOGEX 0, 0, 380, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Acest instrument vã permite sã creaþi un card SD sau un stick USB de memorie de recuperare pentru a restabili laptopul Chromebook.",IDC_STATIC,7,7,366,20
+    LTEXT           "Mesajul este setat în momentul execuþiei.",IDC_MESSAGE,7,33,366,10
+    LTEXT           "Stare",IDC_STATUS,50,65,280,10
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,50,76,280,14
+    LTEXT           "Timp rãmas:",IDC_TIME_REMAINING,50,92,280,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROPPAGE_SELECT_DEVICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_PROPPAGE_SELECT_USB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+
+    IDD_DOWNLOAD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_ERASE_CONFIRM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        VERTGUIDE, 38
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 82
+    END
+
+    IDD_PROPPAGE_FINISH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_PROPPAGE_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 473
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+        HORZGUIDE, 43
+        HORZGUIDE, 123
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "ChromeOSRecovery Module"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "ChromeOSRecovery"
+            VALUE "LegalCopyright", "Copyright 2011"
+            VALUE "OriginalFilename", "ChromeOSRecovery.exe"
+            VALUE "ProductName", "ChromeOSRecovery Module"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CHROMEOSRECOVERY    "Creaþi suportul de recuperare pentru sistemul de operare Chrome"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_RESOLVING_NAME "Se soluþioneazã gazda %s..."
+    IDS_STATUS_NAME_RESOLVED "Gazda %s a fost soluþionatã"
+    IDS_STATUS_CONNECTING_TO_SERVER "Se conecteazã la serverul %s..."
+    IDS_STATUS_CONNECTED_TO_SERVER "Conectarea la serverul %s a fost realizatã"
+    IDS_STATUS_CLOSING_CONNECTION "Se închide conexiunea la serverul %s..."
+    IDS_STATUS_CONNECTION_CLOSED "Conexiunea la serverul %s a fost închisã"
+    IDS_STATUS_SENDING_REQUEST "Se trimite solicitarea..."
+    IDS_STATUS_REQUEST_SENT "Solicitarea a fost trimisã"
+    IDS_STATUS_REQUEST_ERROR "Eroare solicitare"
+    IDS_STATUS_REDIRECT     "Se redirecþioneazã..."
+    IDS_STATUS_DOWNLOADING  "%s din %s descãrcat"
+    IDS_STATUS_DOWNLOAD_COMPLETE "Descãrcarea a fost finalizatã"
+    IDS_STATUS_SENDREQUEST_COMPLETE "Solicitarea a fost finalizatã"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DOWNLOADING_CONFIG  "Se descarcã configuraþiile de recuperare pentru sistemul de operare Chrome..."
+    IDS_DOWNLOADING_RECOVERY_IMAGE "Se descarcã imaginea de recuperare..."
+    IDS_WRITING_RECOVERY_IMAGE "Se scrie imaginea de recuperare..."
+    IDS_WRITING_IMAGE       "Aºteptaþi. Scriem imaginea pe discul dvs. USB."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DEVICES_LIST_COLUMN_NAME "Dispozitiv"
+    IDS_DEVICES_LIST_COLUMN_DESC "Descriere"
+    IDS_LOCAL_IMAGE              "Imagine localã"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_COLUMN_NAME "Nume"
+    IDS_USB_LIST_COLUMN_SIZE "Dimensiune"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERASE_CONFIRMATION_FORMAT "Toate fiºierele de pe %s vor fi ºterse."
+    IDS_DEVICE_TOO_SMALL_WARNING_FORMAT 
+                            "Dispozitivul are o capacitate de %s. Introduceþi un card SD sau un stick USB de memorie cu o capacitate de minimum 4 GO."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_UNZIPPING    "%s din %s despachetat"
+    IDS_STATUS_UNZIP_COMPLETE "Despachetare a fost finalizatã"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_VERIFYING    "%s din %s verificat"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATUS_WRITING      "%s din %s copiat"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CONFIRM_CANCEL      "Sigur doriþi sã anulaþi crearea imaginii de recuperare pentru sistemul dvs. de operare Chrome?"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_INTERNAL      "A survenit o eroare internã."
+    IDS_ERROR_FAILED_OPEN_FILE "Nu s-a putut deschide fiºierul %s (%d)."
+    IDS_ERROR_FAILED_READ_FILE "Nu s-a putut citi fiºierul %s (%d)."
+    IDS_ERROR_FAILED_WRITE_FILE "Nu s-a putut scrie în fiºierul %s (%d)."
+    IDS_ERROR_CANNOT_FIND_FILE_IN_ZIP 
+                            "Nu se poate gãsi fiºierul %s în fiºierul zip descãrcat (%d)."
+    IDS_ERROR_FAILED_UNZIP_FILE "Nu s-a putut despacheta fiºierul %s (%d)."
+    IDS_ERROR_FAILED_CONNECT "Nu s-a putut conecta la %s:%d (%d)."
+    IDS_ERROR_FAILED_GET    "Nu s-a putut prelua %s (%d)."
+    IDS_ERROR_FAILED_SEND_REQUEST "Nu s-a putut trimite solicitarea (%d)."
+    IDS_ERROR_FAILED_DOWNLOAD "Nu s-a putut descãrca imaginea ( %d)."
+    IDS_ERROR_IMAGE_NOT_AVAIL 
+                            "Imaginea de recuperare nu este disponibilã în prezent (%d)."
+    IDS_ERROR_FAILED_VERIFY "Imaginea descãrcatã este deterioratã (%d)."
+    IDS_ERROR_ASYNC_WAIT_FAILED 
+                            "A survenit o eroare la aºteptarea solicitãrilor I/O asincrone pentru fiºierul %s (%d, %d)."
+    IDS_RECOVERY_TOOL_UPDATE_NEEDED "%s"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USB_LIST_INSERT_DISK 
+                            "Introduceþi un card SD sau un stick USB de memorie. Dispozitivul trebuie sã aibã capacitatea de minimum 4 GO."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TIME_REMAINING_FORMAT "Timp rãmas: %s"
+    IDS_TIME_REMAINING_CALCULATING "Se calculeazã..."
+    IDS_DAY                 "zi"
+    IDS_DAYS                "zile"
+    IDS_HOUR                "orã"
+    IDS_HOURS               "ore"
+    IDS_MINUTE              "minut"
+    IDS_MINUTES             "minute"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SECOND              "secundã"
+    IDS_SECONDS             "secunde"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOG_FILE_LOCATION_FORMAT 
+                            "Mai multe informaþii sunt disponibile în fiºierul jurnal de mai jos. Asiguraþi-vã cã aþi copiat fiºierul înainte de a închide aceastã aplicaþie.\r\n\r\n%s"
+END
