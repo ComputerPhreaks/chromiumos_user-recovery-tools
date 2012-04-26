@@ -29,6 +29,7 @@
 		8238732012B19C60003AEA9C /* DockTile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8238731F12B19C60003AEA9C /* DockTile.mm */; };
 		8238734D12B1A773003AEA9C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8238734C12B1A773003AEA9C /* Carbon.framework */; };
 		825C0A5013A6961A000460A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 825C0A4F13A6961A000460A4 /* MainMenu.xib */; };
+		82621AC715191FB80094D57E /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 82621AC615191FB80094D57E /* banner.png */; };
 		82EDB4DC13A7F2E50002BB45 /* GTMUILocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4D913A7F2E50002BB45 /* GTMUILocalizer.m */; };
 		82EDB4DD13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4DB13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.m */; };
 		82EDB4F213A7F3AB0002BB45 /* GTMNSNumber+64Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 82EDB4F113A7F3AB0002BB45 /* GTMNSNumber+64Bit.m */; };
@@ -146,6 +147,7 @@
 		825C0AF613A69D55000460A4 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_CN; path = Resources/zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		825C0AF713A69D55000460A4 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = Resources/zh_TW.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		825C0AF813A69D55000460A4 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = Resources/zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
+		82621AC615191FB80094D57E /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = banner.png; path = Resources/banner.png; sourceTree = "<group>"; };
 		82EDB4D813A7F2E50002BB45 /* GTMUILocalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMUILocalizer.h; path = AppKit/GTMUILocalizer.h; sourceTree = "<group>"; };
 		82EDB4D913A7F2E50002BB45 /* GTMUILocalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMUILocalizer.m; path = AppKit/GTMUILocalizer.m; sourceTree = "<group>"; };
 		82EDB4DA13A7F2E50002BB45 /* GTMUILocalizerAndLayoutTweaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMUILocalizerAndLayoutTweaker.h; path = AppKit/GTMUILocalizerAndLayoutTweaker.h; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				821E541F12A7F038002EF1C3 /* app.icns */,
+				82621AC615191FB80094D57E /* banner.png */,
 				D4A6C9A709479AD300354625 /* Info.plist */,
 				D4A6C9B709479B9200354625 /* InfoPlist.strings */,
 				821E53DF12A71B40002EF1C3 /* Localizable.strings */,
@@ -349,6 +352,7 @@
 				821E53E112A71B40002EF1C3 /* Localizable.strings in Resources */,
 				821E542012A7F038002EF1C3 /* app.icns in Resources */,
 				825C0A5013A6961A000460A4 /* MainMenu.xib in Resources */,
+				82621AC715191FB80094D57E /* banner.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

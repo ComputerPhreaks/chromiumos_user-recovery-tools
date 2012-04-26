@@ -1,4 +1,4 @@
-// Copyright (c) 2011 The Chromium OS Authors. All rights reserved.
+// Copyright (c) 2012 The Chromium OS Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -227,8 +227,6 @@ NSString* SizeStringForValue(double size) {
 @implementation AppController
 
 - (void)awakeFromNib {
-  [imageTable_ setDoubleAction:@selector(imageWasDoubleClicked:)];
-  [imageTable_ setTarget:self];
   [stickTable_ setDoubleAction:@selector(stickWasDoubleClicked:)];
   [stickTable_ setTarget:self];
 
@@ -263,13 +261,21 @@ NSString* SizeStringForValue(double size) {
                                CFRunLoopGetMain(),
                                kCFRunLoopDefaultMode);
 
-  // Flip text fields if RTL.
+  // Cheesy RTL hackery to make things look decent; real tools would be nice.
   if ([NSLocalizedString(@"UI Is RTL", nil) isEqualToString:@"YES"]) {
+    // Flip text fields if RTL.
     [welcomeText_ setAlignment:NSRightTextAlignment];
     [selectStickText_ setAlignment:NSRightTextAlignment];
     [statusLine_ setAlignment:NSRightTextAlignment];
     [congratsText_ setAlignment:NSRightTextAlignment];
+
+    imageComboBox_ = imageComboBoxRTL_;
+    [imageComboBoxLTR_ removeFromSuperview];
+  } else {
+    imageComboBox_ = imageComboBoxLTR_;
+    [imageComboBoxRTL_ removeFromSuperview];
   }
+
 
   [window_ center];
   // The order in which objects are woken from the nib is undefined; if the
@@ -302,6 +308,10 @@ NSString* SizeStringForValue(double size) {
   [configConnection_ release];
 
   [super dealloc];
+}
+
+- (BOOL)isRTL {
+  return [NSLocalizedString(@"UI Is RTL", nil) isEqualToString:@"YES"];
 }
 
 - (IBAction)nextTab:(id)sender {
@@ -404,6 +414,8 @@ NSString* SizeStringForValue(double size) {
   return;
 }
 
+#pragma mark NSTableViewDelegate
+
 - (BOOL)tableView:(NSTableView*)tableView
     shouldEditTableColumn:(NSTableColumn*)tableColumn
               row:(NSInteger)rowIndex {
@@ -411,44 +423,39 @@ NSString* SizeStringForValue(double size) {
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification*)notification {
-  NSTableView* tableView = [notification object];
-
-  if (tableView == stickTable_)
-    [self stickSelectionChanged];
-  if (tableView == imageTable_)
-    [self imageSelectionChanged];
+  [self stickSelectionChanged];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView {
-  if (tableView == stickTable_)
-    return [self stickTableRowCount];
-  if (tableView == imageTable_)
-    return [self imageTableRowCount];
-
-  return 0;
+  return [self stickTableRowCount];
 }
 
 - (id)tableView:(NSTableView*)tableView
     objectValueForTableColumn:(NSTableColumn*)tableColumn
             row:(NSInteger)row {
-  if (tableView == stickTable_)
-    return [self stickTableObjectValueForRow:row];
-  if (tableView == imageTable_)
-    return [self imageTableObjectValueForRow:row];
-
-  return nil;
+  return [self stickTableObjectValueForRow:row];
 }
 
-- (NSString*)tableView:(NSTableView *)tableView
-        toolTipForCell:(NSCell *)cell
-                  rect:(NSRectPointer)rect
-           tableColumn:(NSTableColumn *)tableColumn
-                   row:(NSInteger)row
-         mouseLocation:(NSPoint)mouseLocation {
-  if (tableView == imageTable_)
-    return [self imageTableToolTipForRow:row];
+#pragma mark NSComboBoxDelegate
 
-  return nil;
+- (void)comboBoxWillDismiss:(NSNotification*)notification {
+  imageComboBoxPopped_ = NO;
+}
+
+- (void)comboBoxWillPopUp:(NSNotification*)notification {
+  imageComboBoxPopped_ = YES;
+}
+
+- (void)controlTextDidChange:(NSNotification*)notification {
+  [self imageComboTextChanged];
+}
+
+- (NSArray*)control:(NSControl*)control
+           textView:(NSTextView*)textView
+        completions:(NSArray*)words
+forPartialWordRange:(NSRange)charRange
+indexOfSelectedItem:(NSInteger*)index {
+  return [NSArray array];  // no weird completions, please
 }
 
 #pragma mark Select Device
@@ -503,8 +510,9 @@ NSString* SizeStringForValue(double size) {
 
   [self parseConfig:configString];
 
-  [imageTable_ reloadData];
+  [self updateImageCombo];
   self.loadingConfigFinished = YES;
+  [imageComboBox_ becomeFirstResponder];
 }
 
 - (void)parseConfig:(NSString*)configString {
@@ -546,7 +554,7 @@ NSString* SizeStringForValue(double size) {
   // Keys that may occur more than once.
   NSSet* arrayKeys = [NSSet setWithObjects:kConfigHWID, kConfigURL, nil];
 
-  NSMutableArray* images = [[NSMutableArray alloc] init];
+  NSMutableDictionary* images = [[NSMutableDictionary alloc] init];
   // Skip the autoupdate stanza.
   for (NSUInteger stanza = 1; stanza < [stanzas count]; ++stanza) {
     NSDictionary* image = [self parseStanza:[stanzas objectAtIndex:stanza]
@@ -562,10 +570,11 @@ NSString* SizeStringForValue(double size) {
           isValid = NO;
         }
       }
-      isValid =
-          isValid && [self isValidFilename:[image objectForKey:kConfigFile]];
-      if (isValid)
-        [images addObject:image];
+      isValid &= [self isValidFilename:[image objectForKey:kConfigFile]];
+      if (isValid) {
+        for (NSString* hwid in [image objectForKey:kConfigHWID])
+          [images setObject:image forKey:hwid];
+      }
     }
   }
   images_ = images;
@@ -648,76 +657,8 @@ NSString* SizeStringForValue(double size) {
   return YES;
 }
 
-- (NSInteger)imageTableRowCount {
-  return [images_ count];
-}
-
-- (id)imageTableObjectValueForRow:(NSInteger)row {
-  NSDictionary* image = [images_ objectAtIndex:row];
-
-  NSMutableAttributedString* value = [[[NSMutableAttributedString alloc]
-      initWithString:[image objectForKey:kConfigName]
-          attributes:[NSDictionary dictionary]] autorelease];
-
-  NSString* desc = [image objectForKey:kConfigDesc];
-  if (!desc) {
-    NSArray* hwidKey = [image objectForKey:kConfigHWID];
-    if (hwidKey) {
-      desc = CommonPrefixOfStringArray(hwidKey);
-      if ([hwidKey count] > 1) {
-        desc = [desc stringByTrimmingCharactersInSet:
-            [NSCharacterSet whitespaceCharacterSet]];
-        const unichar ch = 0x2026;  // U+2026 (HORIZONTAL ELLIPSIS)
-        desc = [desc stringByAppendingFormat:@"%C", ch];
-      }
-    }
-  }
-
-  if (desc) {
-    desc = [NSString stringWithFormat:@" (%@)", desc];
-    NSDictionary* descAttributes = [NSDictionary
-        dictionaryWithObject:[NSFont systemFontOfSize:10]
-                      forKey:NSFontAttributeName];
-    NSAttributedString* descAttrString = [[[NSAttributedString alloc]
-        initWithString:desc attributes:descAttributes] autorelease];
-    [value appendAttributedString:descAttrString];
-  }
-
-  NSString* version = [image objectForKey:kConfigVersion];
-  if (version) {
-    NSString* versionString = [NSString stringWithFormat:@", %@", version];
-    NSAttributedString* versionAttrString = [[[NSAttributedString alloc]
-        initWithString:versionString
-            attributes:[NSDictionary dictionary]] autorelease];
-    [value appendAttributedString:versionAttrString];
-  }
-
-  NSString* channel = [image objectForKey:kConfigChannel];
-  if (channel) {
-    NSString* channelString = [NSString stringWithFormat:@", %@", channel];
-    NSAttributedString* channelAttrString = [[[NSAttributedString alloc]
-        initWithString:channelString
-            attributes:[NSDictionary dictionary]] autorelease];
-    [value appendAttributedString:channelAttrString];
-  }
-
-  return value;
-}
-
-- (NSString*)imageTableToolTipForRow:(NSInteger)row {
-  NSDictionary* image = [images_ objectAtIndex:row];
-
-  NSString* result = nil;
-  NSArray* hwidKey = [image objectForKey:kConfigHWID];
-  if (hwidKey) {
-    result = [hwidKey componentsJoinedByString:@",\n"];
-  }
-
-  return result;
-}
-
 - (BOOL)selectDeviceNextEnabled {
-  return [imageTable_ selectedRow] != -1;
+  return [images_ objectForKey:[imageComboBox_ stringValue]] != nil;
 }
 
 - (IBAction)selectLocalFile:(id)sender {
@@ -787,21 +728,65 @@ NSString* SizeStringForValue(double size) {
   return buffer[kSectorSize - 2] == 0x55 && buffer[kSectorSize - 1] == 0xAA;
 }
 
-- (void)imageSelectionChanged {
+- (NSArray*)matchingImageHwids {
+  NSArray* allHwids = [images_ allKeys];
+
+  NSString* text = [imageComboBox_ stringValue];
+  if (![text length])
+    return allHwids;
+
+  // First, do any hwids start with what was typed?
+  NSPredicate* predicate =
+      [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@", text];
+  NSArray* matches = [allHwids filteredArrayUsingPredicate:predicate];
+  if ([matches count])
+    return matches;
+
+  // If not, try substring.
+  predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS %@", text];
+  return [allHwids filteredArrayUsingPredicate:predicate];
+}
+
+- (void)updateImageCombo {
+  [imageComboBox_ removeAllItems];
+
+  NSArray* matches = [[self matchingImageHwids] sortedArrayUsingSelector:
+                         @selector(localizedCaseInsensitiveCompare:)];
+  [imageComboBox_ addItemsWithObjectValues:matches];
+}
+
+- (void)imageComboTextChanged {
+  // Automatically capitalize user input.
+  NSString* text = [imageComboBox_ stringValue];
+  [imageComboBox_ setStringValue:[text uppercaseString]];
+
+  // Update list of matching HWIDs.
+  [self updateImageCombo];
+
+  // Pop up completions.
+  if (!imageComboBoxPopped_) {
+    [[imageComboBox_ cell] performSelector:@selector(popUp:)
+                                withObject:nil
+                                afterDelay:0];
+  }
+}
+
+- (IBAction)imageWasSelected:(id)sender {
+  NSArray* matches = [self matchingImageHwids];
+  if ([matches count] == 1) {
+    [imageComboBox_ setStringValue:[matches objectAtIndex:0]];
+  }
+
   [self willChangeValueForKey:@"selectDeviceNextEnabled"];
   [self didChangeValueForKey:@"selectDeviceNextEnabled"];
 }
 
-- (IBAction)imageWasDoubleClicked:(id)sender {
-  [self nextTab:sender];
-}
-
 - (BOOL)selectDeviceNext {
-  if ([imageTable_ selectedRow] == -1)
+  if (![self selectDeviceNextEnabled])
     return NO;
 
   isImageLocal_ = NO;
-  image_ = [images_ objectAtIndex:[imageTable_ selectedRow]];
+  image_ = [images_ objectForKey:[imageComboBox_ stringValue]];
   imageSize_ = [[image_ objectForKey:kConfigImageSize] longLongValue];
 
   return YES;
@@ -818,7 +803,7 @@ NSString* SizeStringForValue(double size) {
 }
 
 - (void)diskAppeared:(DADiskRef)disk {
-  if ([self isUSBStick:disk]) {
+  if ([self isAcceptableMedia:disk]) {
     BOOL notify = [sticks_ count] == 0;
     if (notify)
       [self willChangeValueForKey:@"insertUSBStickHidden"];
@@ -843,7 +828,7 @@ NSString* SizeStringForValue(double size) {
   // Claim all USB sticks. This way if the user plugs in a blank stick to be
   // used, they won't get distracted by DiskArb complaining. (This won't prevent
   // it from mounting, though, if it has a mountable filesystem.)
-  if ([self isUSBStick:disk]) {
+  if ([self isAcceptableMedia:disk]) {
     DADiskClaim(disk,
                 kDADiskClaimOptionDefault,
                 ProtectiveDiskClaimRevoked,
@@ -853,12 +838,13 @@ NSString* SizeStringForValue(double size) {
   }
 }
 
-- (BOOL)isUSBStick:(DADiskRef)disk {
+- (BOOL)isAcceptableMedia:(DADiskRef)disk {
   CFDictionaryRef info = DADiskCopyDescription(disk);
 
   // Be excruciatingly paranoid about what we consider to be a USB stick.
   NSNumber* internal = DictLookup(info, kDADiskDescriptionDeviceInternalKey);
   NSString* protocol = DictLookup(info, kDADiskDescriptionDeviceProtocolKey);
+  NSString* ioRegPath = DictLookup(info, kDADiskDescriptionDevicePathKey);
   NSNumber* ejectable = DictLookup(info, kDADiskDescriptionMediaEjectableKey);
   NSNumber* removable = DictLookup(info, kDADiskDescriptionMediaRemovableKey);
   NSNumber* whole = DictLookup(info, kDADiskDescriptionMediaWholeKey);
@@ -874,15 +860,36 @@ NSString* SizeStringForValue(double size) {
   // - it is of type IOMedia (external DVD drives and the like are IOCDMedia or
   //   IODVDMedia)
 
-  BOOL result = ![internal boolValue] &&
-                 [protocol isEqualToString:@"USB"] &&
-                 [ejectable boolValue] &&
-                 [removable boolValue] &&
-                 [whole boolValue] &&
-                 [kind isEqualToString:@"IOMedia"];
+  BOOL isUSBStick = ![internal boolValue] &&
+                     [protocol isEqualToString:@"USB"] &&
+                     [ejectable boolValue] &&
+                     [removable boolValue] &&
+                     [whole boolValue] &&
+                     [kind isEqualToString:@"IOMedia"];
+
+  // A drive is an SD card iff:
+  // - it is attached to the USB bus
+  // - it is ejectable (because it will be ejected after written to)
+  // - it is removable
+  // - it is the whole drive (although the use of
+  //   kDADiskDescriptionMatchMediaWhole should have ensured this)
+  // - it is of type IOMedia (external DVD drives and the like are IOCDMedia or
+  //   IODVDMedia)
+  // - the IORegistry device path contains "AppleUSBCardReader"
+
+  BOOL isSDCard = [protocol isEqualToString:@"USB"] &&
+                  [ejectable boolValue] &&
+                  [removable boolValue] &&
+                  [whole boolValue] &&
+                  [kind isEqualToString:@"IOMedia"] &&
+                  [self hasIORegPathOfSDCard:ioRegPath];
 
   CFRelease(info);
-  return result;
+  return isUSBStick || isSDCard;
+}
+
+- (BOOL)hasIORegPathOfSDCard:(NSString*)path {
+  return [path rangeOfString:@"AppleUSBCardReader"].location != NSNotFound;
 }
 
 - (NSInteger)stickTableRowCount {
@@ -956,13 +963,22 @@ NSString* SizeStringForValue(double size) {
 }
 
 - (NSString*)descriptionForDisk:(DADiskRef)disk {
+  NSString* diskName;
+
   CFDictionaryRef info = DADiskCopyDescription(disk);
-  NSString* vendor = DictLookup(info, kDADiskDescriptionDeviceVendorKey);
-  NSString* model = DictLookup(info, kDADiskDescriptionDeviceModelKey);
+  NSString* ioRegPath = DictLookup(info, kDADiskDescriptionDevicePathKey);
+  if ([self hasIORegPathOfSDCard:ioRegPath])
+    diskName = NSLocalizedString(@"Label SD Card", nil);
+  else {
+    NSString* vendor = DictLookup(info, kDADiskDescriptionDeviceVendorKey);
+    NSString* model = DictLookup(info, kDADiskDescriptionDeviceModelKey);
+    diskName = [NSString stringWithFormat:@"%@ %@", vendor, model];
+  }
+
   double size = [DictLookup(info, kDADiskDescriptionMediaSizeKey) doubleValue];
 
-  NSString* desc = [NSString stringWithFormat:@"%@ %@ (%@)",
-      vendor, model, SizeStringForValue(size)];
+  NSString* desc = [NSString stringWithFormat:@"%@ (%@)",
+      diskName, SizeStringForValue(size)];
   CFRelease(info);
 
   return desc;
@@ -1138,7 +1154,7 @@ NSString* SizeStringForValue(double size) {
 
 - (void)verify {
   ScopedNSAutoreleasePool poolOwner([[NSAutoreleasePool alloc] init]);
-  status_.statusText = "Status Verifying";
+  status_.statusText = "Status Verifying Image";
   status_.progressIndeterminate = YES;
   status_.progressBytes = 0;
   status_.attempt = 0;
@@ -1405,7 +1421,7 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
           (long long)imageSize_, (long long)blockSize);
   }
   int devfd = HANDLE_EINTR(opendev((char*)bsdName,
-                                   O_WRONLY,
+                                   O_RDWR,
                                    flags,
                                    NULL));
   if (devfd < 0) {
@@ -1421,6 +1437,8 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
   // Prep timing.
   mach_timebase_info_data_t timebase;
   mach_timebase_info(&timebase);
+  const uint64_t kProgressUpdateIntervalNanos = 100 * 1000 * 1000;  // = 100 ms
+  uint64_t lastUpdateTime = 0;
 
   // Slam bits.
   status_.progressBytes = 0;
@@ -1429,12 +1447,13 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
   [self sendStatusUpdate];
 
   const int kBufferSize = 128 * 1024;
-  std::vector<char> buffer(kBufferSize);
-  uint64_t lastUpdateTime = 0;
+  std::vector<char> sourceBuffer(kBufferSize);
   while (status_.progressBytes < imageSize_ &&
          !failureInfo.failureStep &&
          !stopping_) {
-    ssize_t bytesRead = HANDLE_EINTR(read(imagefd, &buffer[0], kBufferSize));
+    ssize_t bytesRead = HANDLE_EINTR(read(imagefd,
+                                          &sourceBuffer[0],
+                                          kBufferSize));
     if (bytesRead <= 0) {
       failureInfo.failureStep = "Failure Reading Source Image";
       if (bytesRead < 0) {
@@ -1449,9 +1468,10 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
 
     ssize_t bytesWritten = 0;
     while (bytesRead > bytesWritten) {
-      ssize_t bytesJustWritten = HANDLE_EINTR(write(devfd,
-                                                    &buffer[0] + bytesWritten,
-                                                    bytesRead - bytesWritten));
+      ssize_t bytesJustWritten =
+          HANDLE_EINTR(write(devfd,
+                             &sourceBuffer[0] + bytesWritten,
+                             bytesRead - bytesWritten));
       if (bytesJustWritten <= 0) {
         failureInfo.failureStep = "Failure Writing Destination Device";
         if (bytesJustWritten < 0) {
@@ -1468,8 +1488,73 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
       bytesWritten += bytesJustWritten;
 
       uint64_t now = mach_absolute_time();
-      const uint64_t kProgressUpdateIntervalNanos =
-          100 * 1000 * 1000;  // = 100 ms
+      uint64_t difference =
+          (now - lastUpdateTime) * timebase.numer / timebase.denom;
+      if (difference > kProgressUpdateIntervalNanos) {
+        [self sendStatusUpdate];
+        lastUpdateTime = now;
+      }
+    }
+  }
+
+  // Verify bits.
+  status_.progressBytes = 0;
+  status_.statusText = "Status Verifying Media";
+  status_.progressIndeterminate = NO;
+  [self sendStatusUpdate];
+
+  if (lseek(imagefd, 0, SEEK_SET) != 0) {
+    failureInfo.failureStep = "Failure Resetting Source Image";
+    failureInfo.errorDomain = FailureInfo::kErrnoError;
+    failureInfo.errorCode = errno;
+  }
+  if (lseek(devfd, 0, SEEK_SET) != 0) {
+    failureInfo.failureStep = "Failure Resetting Destination Device";
+    failureInfo.errorDomain = FailureInfo::kErrnoError;
+    failureInfo.errorCode = errno;
+  }
+
+  std::vector<char> destBuffer(kBufferSize);
+  while (status_.progressBytes < imageSize_ &&
+         !failureInfo.failureStep &&
+         !stopping_) {
+    ssize_t sourceBytesRead = HANDLE_EINTR(read(imagefd,
+                                                &sourceBuffer[0],
+                                                kBufferSize));
+    if (sourceBytesRead <= 0) {
+      failureInfo.failureStep = "Failure Reading Source Image";
+      if (sourceBytesRead < 0) {
+        failureInfo.errorDomain = FailureInfo::kErrnoError;
+        failureInfo.errorCode = errno;
+      } else {
+        failureInfo.errorDomain = FailureInfo::kInternalError;
+        failureInfo.errorCode = kInternalErrorUnexpectedEOF;
+      }
+      break;
+    }
+
+    ssize_t destBytesRead = 0;
+    while (sourceBytesRead > destBytesRead) {
+      ssize_t destBytesJustRead =
+          HANDLE_EINTR(read(devfd,
+                            &destBuffer[0] + destBytesRead,
+                            sourceBytesRead - destBytesRead));
+      if (destBytesJustRead <= 0) {
+        failureInfo.failureStep = "Failure Reading Destination Device";
+        if (destBytesJustRead < 0) {
+          failureInfo.errorDomain = FailureInfo::kErrnoError;
+          failureInfo.errorCode = errno;
+        } else {
+          failureInfo.errorDomain = FailureInfo::kInternalError;
+          failureInfo.errorCode = kInternalErrorUnexpectedEOF;
+        }
+        break;
+      }
+
+      status_.progressBytes += destBytesJustRead;
+      destBytesRead += destBytesJustRead;
+
+      uint64_t now = mach_absolute_time();
       uint64_t difference =
           (now - lastUpdateTime) * timebase.numer / timebase.denom;
       if (difference > kProgressUpdateIntervalNanos) {

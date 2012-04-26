@@ -1,4 +1,4 @@
-// Copyright (c) 2011 The Chromium OS Authors. All rights reserved.
+// Copyright (c) 2012 The Chromium OS Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,7 +16,10 @@
 
   // Tab: Select device model
   IBOutlet NSTextField* welcomeText_;
-  IBOutlet NSTableView* imageTable_;
+  IBOutlet NSComboBox* imageComboBoxLTR_;
+  IBOutlet NSComboBox* imageComboBoxRTL_;
+  NSComboBox* imageComboBox_;
+  BOOL imageComboBoxPopped_;
 
   // Tab: Select USB stick
   IBOutlet NSTextField* selectStickText_;
@@ -33,7 +36,7 @@
   BOOL loadingConfigFinished_;
   NSURLConnection* configConnection_;
   NSMutableData* configData_;
-  NSArray* images_;  // Array of dictionary of info
+  NSDictionary* images_;  // Maps HWID NSStrings to image dictionaries
   BOOL isImageLocal_;
   NSDictionary* image_;  // valid if !isImageLocal; WEAK (member of images_)
   NSString* imagePath_;
@@ -64,6 +67,7 @@
   } diskArbSuccess_;
 }
 
+@property (nonatomic, readonly) BOOL isRTL;
 - (IBAction)nextTab:(id)sender;
 - (IBAction)previousTab:(id)sender;
 - (IBAction)done:(id)sender;
@@ -84,13 +88,12 @@
 - (NSComparisonResult)compareVersion:(NSString*)left
                            toVersion:(NSString*)right;
 - (BOOL)isValidFilename:(NSString*)filename;
-- (NSInteger)imageTableRowCount;
-- (id)imageTableObjectValueForRow:(NSInteger)row;
-- (NSString*)imageTableToolTipForRow:(NSInteger)row;
 - (IBAction)selectLocalFile:(id)sender;
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString*)filename;
-- (void)imageSelectionChanged;
-- (IBAction)imageWasDoubleClicked:(id)sender;
+- (NSArray*)matchingImageHwids;
+- (void)updateImageCombo;
+- (void)imageComboTextChanged;
+- (IBAction)imageWasSelected:(id)sender;
 - (BOOL)selectDeviceNext;
 
 // Tab: Select USB stick
@@ -100,7 +103,8 @@
 - (void)diskAppeared:(DADiskRef)disk;
 - (void)diskDisappeared:(DADiskRef)disk;
 - (void)diskPeek:(DADiskRef)disk;
-- (BOOL)isUSBStick:(DADiskRef)disk;
+- (BOOL)isAcceptableMedia:(DADiskRef)disk;
+- (BOOL)hasIORegPathOfSDCard:(NSString*)path;
 - (NSInteger)stickTableRowCount;
 - (id)stickTableObjectValueForRow:(NSInteger)row;
 - (void)stickSelectionChanged;
