@@ -262,7 +262,7 @@ int OpenPathForReadWriteUsingAuthopen(const char* path) {
     ioVec[0].iov_len = kDataBufferSize;
     message.msg_iov = ioVec;
     message.msg_iovlen = 1;
-    const size_t kCmsgSocketSize = CMSG_SPACE(sizeof(int));
+    const socklen_t kCmsgSocketSize = (socklen_t)CMSG_SPACE(sizeof(int));
     char cmsgSocket[kCmsgSocketSize];
     message.msg_control = cmsgSocket;
     message.msg_controllen = kCmsgSocketSize;
