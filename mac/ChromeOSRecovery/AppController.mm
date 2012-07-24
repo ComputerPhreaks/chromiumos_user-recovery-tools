@@ -13,6 +13,7 @@
 #include <objc/objc-runtime.h>
 #include <pthread.h>
 #include <stdarg.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include <util.h>
 
@@ -220,6 +221,80 @@ NSString* SizeStringForValue(double size) {
 
   return [NSString stringWithFormat:@"%.2f%@",
           size, [sizes objectAtIndex:dimension]];
+}
+
+// Opens a path for read/write using the authopen(1) command-line tool. Returns
+// a valid file descriptor or -1 if an error occurs. If -1 is returned, errno
+// holds the error value.
+int OpenPathForReadWriteUsingAuthopen(const char* path) {
+  int sockets[2];  // [parent's end, child's end]
+  int result = socketpair(AF_UNIX, SOCK_STREAM, 0, sockets);
+  if (result == -1)
+    return -1;
+
+  pid_t childPid = fork();
+  if (childPid == -1)
+    return -1;
+
+  if (childPid == 0) {  // child
+    HANDLE_EINTR(dup2(sockets[1], STDOUT_FILENO));
+    HANDLE_EINTR(close(sockets[0]));
+    HANDLE_EINTR(close(sockets[1]));
+
+    const char authopenPath[] = "/usr/libexec/authopen";
+    execl(authopenPath,
+          authopenPath,
+          "-stdoutpipe",
+          "-o",
+          [[NSString stringWithFormat:@"%d", O_RDWR] UTF8String],
+          path,
+          NULL);
+    _exit(errno);
+  } else {  // parent
+    HANDLE_EINTR(close(sockets[1]));
+    int fd = -1;
+
+    msghdr message = { 0 };
+    const size_t kDataBufferSize = 1024;
+    char dataBuffer[kDataBufferSize];
+    iovec ioVec[1];
+    ioVec[0].iov_base = dataBuffer;
+    ioVec[0].iov_len = kDataBufferSize;
+    message.msg_iov = ioVec;
+    message.msg_iovlen = 1;
+    const size_t kCmsgSocketSize = CMSG_SPACE(sizeof(int));
+    char cmsgSocket[kCmsgSocketSize];
+    message.msg_control = cmsgSocket;
+    message.msg_controllen = kCmsgSocketSize;
+    ssize_t size = HANDLE_EINTR(recvmsg(sockets[0], &message, 0));
+    if (size > 0) {
+      cmsghdr* cmsgSocketHeader = CMSG_FIRSTHDR(&message);
+      // Paranoia.
+      if (cmsgSocketHeader &&
+          cmsgSocketHeader->cmsg_level == SOL_SOCKET &&
+          cmsgSocketHeader->cmsg_type == SCM_RIGHTS)
+        fd = *((int *)CMSG_DATA(cmsgSocketHeader));
+    }
+
+    int childStat;
+    result = HANDLE_EINTR(waitpid(childPid, &childStat, 0));
+    HANDLE_EINTR(close(sockets[0]));
+
+    if (result != -1 && WIFEXITED(childStat)) {
+      int exitStatus = WEXITSTATUS(childStat);
+      if (exitStatus) {
+        errno = exitStatus;
+        return -1;
+      }
+    }
+
+    if (fd == -1) {
+      errno = ECANCELED;
+      return -1;
+    }
+
+    return fd;
+  }
 }
 
 }  // namespace
@@ -1424,6 +1499,15 @@ typedef scoped_ptr_malloc<NSString, FileDelete> FileOwner;
                                    O_RDWR,
                                    flags,
                                    NULL));
+  if (devfd < 0 && errno == EACCES) {
+    // Try harder.
+    NSMutableString* devicePath = [NSMutableString stringWithString:@"/dev/"];
+    if (!(flags & OPENDEV_BLCK))
+      [devicePath appendString:@"r"];
+    [devicePath appendString:[NSString stringWithUTF8String:bsdName]];
+    devfd = OpenPathForReadWriteUsingAuthopen(
+        [devicePath fileSystemRepresentation]);
+  }
   if (devfd < 0) {
     failureInfo.failureStep = "Failure Opening Destination Device";
     failureInfo.errorDomain = FailureInfo::kErrnoError;
