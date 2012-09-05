@@ -508,6 +508,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "Chrome OS Image Creator";
 				WRAPPER_EXTENSION = app;
@@ -517,7 +518,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "Chrome OS Image Creator";
 				WRAPPER_EXTENSION = app;

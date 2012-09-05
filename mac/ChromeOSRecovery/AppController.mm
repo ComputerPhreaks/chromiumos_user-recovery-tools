@@ -232,6 +232,9 @@ int OpenPathForReadWriteUsingAuthopen(const char* path) {
   if (result == -1)
     return -1;
 
+  char rdwr[10];
+  snprintf(rdwr, sizeof(rdwr), "%d", O_RDWR);
+
   pid_t childPid = fork();
   if (childPid == -1)
     return -1;
@@ -246,7 +249,7 @@ int OpenPathForReadWriteUsingAuthopen(const char* path) {
           authopenPath,
           "-stdoutpipe",
           "-o",
-          [[NSString stringWithFormat:@"%d", O_RDWR] UTF8String],
+          rdwr,
           path,
           NULL);
     _exit(errno);
