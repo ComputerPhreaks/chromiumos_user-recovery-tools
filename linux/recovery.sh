@@ -446,10 +446,16 @@ choose_image() {
   local count
   local line
   local num
+  local hwidprefix
 
   show=yes
   while true; do
     if [ -n "$show" ]; then
+      echo
+      echo "If you know the Model string displayed at the recovery screen,"
+      prompt "type some or all of it; otherwise just press Enter: "
+      read hwidprefix
+
       echo
       if [ "$num_images" -gt 1 ]; then
         echo "There are $num_images recovery images to choose from:"
@@ -468,7 +474,10 @@ choose_image() {
         elif echo "$line" | grep -q '^channel='; then
           echo "$line" | sed 's/channel=/      channel:  /'
         elif echo "$line" | grep -q '^hwid='; then
-          echo "$line" | sed 's/hwid=/      model:    /'
+          if [ -z "$hwidprefix" ] || \
+              echo "$line" | grep -qi "hwid=$hwidprefix"; then
+              echo "$line" | sed 's/hwid=/      model:    /'
+          fi
         fi
       done < "$config"
       echo
