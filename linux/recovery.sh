@@ -457,6 +457,9 @@ choose_image() {
       read hwidprefix
 
       echo
+      echo "This may take a few minutes to print the full list..."
+
+      echo
       if [ "$num_images" -gt 1 ]; then
         echo "There are $num_images recovery images to choose from:"
       else
@@ -466,20 +469,38 @@ choose_image() {
       count=0
       echo "0 - <quit>"
       # NOTE: making assumptions about the order of lines in each stanza!
+
+
       while read line; do
-        if echo "$line" | grep -q '^name='; then
-          echo
-          count=$(( count + 1 ))
-          echo "$line" | sed "s/name=/$count - /"
-        elif echo "$line" | grep -q '^channel='; then
-          echo "$line" | sed 's/channel=/      channel:  /'
-        elif echo "$line" | grep -q '^hwid='; then
-          if [ -z "$hwidprefix" ] || \
-              echo "$line" | grep -qi "hwid=$hwidprefix"; then
-              echo "$line" | sed 's/hwid=/      model:    /'
+          # Got something...
+          if [ -n "$line" ]; then
+              key=${line%=*}
+              val=${line#*=}
+              if [ -z "$key" ] || [ -z "$val" ] || \
+                  [ "$key=$val" != "$line" ]; then
+                  DEBUG "ignoring $line"
+                  continue
+              fi
+
+              case $key in
+                  name)
+                      count=$(( count + 1 ))
+                      echo "$count - $val"
+                      ;;
+                  channel)
+                      echo "      channel:  $val"
+                      ;;
+                  hwid)
+                      if [ -z "$hwidprefix" ]; then
+                          echo "      model:    $val"
+                      elif [ "${val#$hwidprefix}" != "$val" ]; then
+                          echo "      model:    $val"
+                      fi
+                      ;;
+              esac
           fi
-        fi
       done < "$config"
+
       echo
       show=
     fi
