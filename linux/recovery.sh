@@ -686,4 +686,145 @@ $choices
     elif echo "$num" | grep -q '[^0-9]'; then
       echo "Sorry, I didn't understand that."
     else
-      if [ "$num" -lt "0" ] || [ "$num" -gt "$num_drives" ];
+      if [ "$num" -lt "0" ] || [ "$num" -gt "$num_drives" ]; then
+        echo "That's not one of the choices."
+      elif [ "$num" -eq 0 ]; then
+        quit
+      else
+        break;
+      fi
+    fi
+  done
+  # global
+  user_choice=$(echo $devlist | cut -d' ' -f$num)
+}
+# Unmount a partition
+unmount_partition() {
+  if [ -n "$DISKUTIL" ]; then
+    diskutil unmountDisk "$1" || ufatal "Unable to unmount $1."
+  else
+    umount "$1" || ufatal "Unable to unmount $1."
+  fi
+}
+##############################################################################
+# Okay, do something...
+# Warn about usage
+if [ -n "${1:-}" ] && [ "$1" != "--config" ]; then
+  echo "This program takes no arguments. Just run it."
+  # That's not really true. For debugging you can specify "--config URL".
+  exit 1
+fi
+# Make sure we have the tools we need
+require_utils
+# Need a place to work. We prefer a fixed location so we can try to resume any
+# interrupted downloads.
+if [ -n "$WORKDIR" ]; then
+  if [ ! -d "$WORKDIR" ] && ! mkdir "$WORKDIR" ; then
+    warn "Using temporary directory"
+    WORKDIR=
+  fi
+fi
+if [ -z "$WORKDIR" ]; then
+  WORKDIR=$(mktemp -d)
+  # Clean up temporary directory afterwards
+  trap "cd; rm -rf ${WORKDIR}" EXIT
+fi
+cd "$WORKDIR"
+warn "Working in $WORKDIR/"
+rm -f "$debug"
+# Download the config file to see what choices we have.
+warn "Downloading config file from $CONFIGURL"
+fetch_url "$CONFIGURL" "$tmpfile" || \
+  gfatal "Unable to download the config file"
+# Separate the version info from the images
+grep '^recovery_tool' "$tmpfile" > "$version"
+grep -v '^#' "$tmpfile" | grep -v '^recovery_tool' > "$config"
+# Add one empty line to the config file to terminate the last stanza
+echo >> "$config"
+# Make sure that the config file version matches this script version.
+tmp=$(grep '^recovery_tool_linux_version=' "$version") || \
+  tmp=$(grep '^recovery_tool_version=' "$version") || \
+  gfatal "The config file doesn't contain a version string."
+filevers=${tmp#*=}
+if [ "$filevers" != "$MYVERSION" ]; then
+  tmp=$(grep '^recovery_tool_update=' "$version");
+  msg=${tmp#*=}
+  warn "This tool is version $MYVERSION." \
+    "The config file is for version $filevers."
+  fatal ${msg:-Please download a matching version of the tool and try again.}
+fi
+# Check the config file to be sure it's valid. As a side-effect, this sets the
+# global variable 'num_images' with the number of image stanzas read, but
+# that's independent of whether the config is valid.
+good_config || gfatal "The config file isn't valid."
+# Make the user pick an image to download, or exit.
+choose_image
+# Download the user's choice
+fetch_image "$user_choice" || \
+  gfatal "Unable to download a valid recovery image."
+if [ -n "$DEVICE" ]; then
+  user_choice="${DEVICE#/dev/}"
+  dev_desc="${DEVICE}"
+else
+  # Make the user pick a USB drive, or exit.
+  choose_drive
+  # Be sure
+  dev_desc=$(get_devinfo "$user_choice")
+fi
+# Start asking for confirmation
+dev_size=$(get_devsize "$user_choice")
+if [ "$dev_size" -lt "$disk_needed" ]; then
+  echo "
+WARNING: This drive seems too small (${dev_size}MB)." \
+  "The recovery image is ${disk_needed}MB."
+fi
+echo "
+Is this the device you want to put the recovery image on?
+  $dev_desc
+"
+prompt "You must enter 'YES' (all uppercase) to continue: "
+read tmp
+if [ "$tmp" != "YES" ]; then
+  quit
+fi
+# Be very sure
+echo "
+I'm really going to erase this device. This will permanently ERASE
+whatever you may have on that drive. You won't be able to undo it.
+  $dev_desc
+"
+prompt "If you're sure that's correct, enter 'DoIt' now (case is important): "
+read tmp
+if [ "$tmp" != "DoIt" ]; then
+  quit
+fi
+echo "
+Installing the recovery image
+"
+# Unmount anything on that device.
+echo "unmounting..."
+for tmp in $(mount | grep ^"/dev/${user_choice}" | cut -d' ' -f1); do
+  unmount_partition "$tmp"
+done
+# Write it.
+echo "copying... (this may take several minutes)"
+# Many BSD variants provide both normal /dev/FOO and raw /dev/rFOO devices,
+# with the raw path being much faster. If that device exists, we'll use it.
+if [ -e /dev/r${user_choice} ]; then
+  user_choice="r${user_choice}"
+fi
+dd bs=4194304 of=/dev/${user_choice} if="$image_file" conv=sync ||
+  ufatal "Unable to write the image."
+sync
+echo "
+Done. Remove the USB drive and insert it in your Chrome notebook.
+"
+prompt "Shall I remove the temporary files now? [y/n] "
+read tmp
+case $tmp in
+  [Yy]*)
+    cd
+    \rm -rf ${WORKDIR}
+    ;;
+esac
+exit 0
