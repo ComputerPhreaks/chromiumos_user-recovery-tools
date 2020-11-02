@@ -22,7 +22,7 @@ WORKDIR=${WORKDIR:-/tmp/tmp.crosrec}
 # Where do we look for the config file? We can override this for debugging by
 # specifying "--config URL" on the command line, but curl and wget may handle
 # file URLs differently.
-CONFIGURL="${2:-https://dl.google.com/dl/edgedl/chromeos/recovery/recovery.conf}"
+CONFIGURL="${2:-https://dl.google.com/dl/edgedl/chromeos/recovery/recovery.conf?source=linux_recovery.sh}"
 
 # Device to put this stuff on, perhaps the user knows best?
 DEVICE="${DEVICE:-}"
@@ -114,7 +114,7 @@ require_utils() {
   local tool
   local tmp
 
-  extern='awk cat cut dd grep ls mkdir mount readlink sed sync umount unzip wc'
+  extern='awk cat cut dd grep ls mkdir mount readlink sed sync umount wc'
   if [ -z "$WORKDIR" ]; then
     extern="$extern mktemp"
   fi
@@ -238,6 +238,14 @@ compute_checksum() {
 
 ##############################################################################
 # Helper functions to handle the config file and image zipfile.
+unzip() {
+  local recoveryzip
+  recoveryzip="$1"
+  local destfile
+  destfile="$2"
+  python -m zipfile -e $recoveryzip $WORKDIR
+}
+
 
 # Convert bytes to MB, rounding up to determine storage needed to hold bytes.
 roundup() {
@@ -268,9 +276,11 @@ verify_tmp_space() {
   # Filesystem         1048576-blocks      Used Available Capacity Mounted on
   # /some/short/path         37546     11118     24521      32% /
   #
-  got=$(df -m . | awk '/^\/[^ ]+ +[0-9]/ {print $4} /^ +[0-9]/ {print $3}')
-
-  if [ "$need" -gt "$got" ]; then
+  # Fixed a bug due to newer `df -m .` output not having preceeding / for first tmp
+  # We only check $WORKDIR's parent filesystem for free space, so skip the first line/record and
+  # use the Available column of the second
+  got=$(df -m . | awk 'NR==2 &&/^.*[^ ]+ +[0-9]/ {print $4} /^ +[0-9]/ {print $3}')
+  if (( "$need" > "$got" )); then
     fatal " There is not enough free space in ${WORKDIR}" \
 "(it has ${got}MB, we need ${need}MB).
 
@@ -441,12 +451,23 @@ good_config() {
 
 # Make the user pick an image to download. On success, it sets the global
 # variable 'user_choice' to the selected image number.
+# TODO: If your search doesn't return results it seems it only offers 0 - <quit> as an option instead of having you search again
 choose_image() {
   local show
   local count
   local line
   local num
   local hwidprefix
+  local showheader
+  local headershown
+  local showhwid
+  local showregexp
+  local regexpshown
+  local curname
+  local curchannel
+  local curregexp
+  local space=" "
+  local caret="^"
 
   show=yes
   while true; do
@@ -455,13 +476,14 @@ choose_image() {
       echo "If you know the Model string displayed at the recovery screen,"
       prompt "type some or all of it; otherwise just press Enter: "
       read hwidprefix
+      hwidprefix=`echo $hwidprefix | tr [a-z] [A-Z] `
 
       echo
       echo "This may take a few minutes to print the full list..."
 
       echo
       if [ "$num_images" -gt 1 ]; then
-        echo "There are $num_images recovery images to choose from:"
+        echo "There are up to $num_images recovery images to choose from:"
       else
         echo "There is $num_images recovery image to choose from:"
       fi
@@ -472,33 +494,84 @@ choose_image() {
 
 
       while read line; do
-          # Got something...
-          if [ -n "$line" ]; then
-              key=${line%=*}
-              val=${line#*=}
-              if [ -z "$key" ] || [ -z "$val" ] || \
-                  [ "$key=$val" != "$line" ]; then
-                  DEBUG "ignoring $line"
-                  continue
-              fi
-
-              case $key in
-                  name)
-                      count=$(( count + 1 ))
-                      echo "$count - $val"
-                      ;;
-                  channel)
-                      echo "      channel:  $val"
-                      ;;
-                  hwid)
-                      if [ -z "$hwidprefix" ]; then
-                          echo "      model:    $val"
-                      elif [ "${val#$hwidprefix}" != "$val" ]; then
-                          echo "      model:    $val"
-                      fi
-                      ;;
-              esac
+        # Got something...
+        if [ -n "$line" ]; then
+          # Extract key/value pair
+          key=${line%=*}
+          val=${line#*=}
+          if [ -z "$key" ] || [ -z "$val" ] || \
+            [ "$key=$val" != "$line" ]; then
+            DEBUG "ignoring $line"
+            continue
           fi
+
+          showhwid=
+          showregexp=
+
+          case $key in
+            name)
+              count=$(( count + 1 ))
+              headershown=
+              curname=${val}
+              curregexp=
+              regexpshown=
+              ;;
+            channel)
+              curchannel=${val}
+              ;;
+            hwidmatch)
+              curregexp=${val}
+              if [ -n "$hwidprefix" ]; then
+                # Prefix specified
+                if echo "$hwidprefix" | grep -q "$curregexp"; then
+                  # Prefix matches regex.
+                  # e.g.
+                  #  prefix: PEPPY A1C
+                  #  regex: ^PEPPY .*
+                  showregexp=true
+                elif echo "$hwidprefix$space" | grep -q "$curregexp"; then
+                  # Prefix with space added matches regex.
+                  # e.g.
+                  #  prefix: PEPPY
+                  #  regex: ^PEPPY .*
+                  showregexp=true
+                elif echo $curregexp | grep -q "^${hwidprefix}.*"; then
+                  # Regex starts with the prefix.
+                  # e.g.
+                  #  prefix: SAMS
+                  #  regex: SAMS ALEX BETA-DOGFOOD 9650|SAMS ALEX BETA-US 8738|...
+                  showregexp=true
+                elif echo $curregexp | grep -q "^${caret}${hwidprefix}.*"; then
+                  # Regex starts with the prefix preceeded by a carret.
+                  # e.g.
+                  #  prefix: MIGHTY
+                  #  regex: ^MIGHTY [A-Z0-9]{3}-[A-Z0-9]{3}-[A-Z0-9]{3}-E[A-Z0-9]{2}-[A-Z0-9]{3}
+                  showregexp=true
+                fi
+              else
+                # If there is no prefix specified, show the hwid match.
+                showregexp=true
+              fi
+              ;;
+          esac
+
+          # Show header at most once per image
+          if [ -z "$headershown" ]; then
+            if [ -n "$showregexp" ] || [ -n "$showhwid" ]; then
+              echo "$count - $curname"
+              echo "  channel:  $curchannel"
+              headershown=true
+            fi
+          fi
+
+          if [ -z "$regexpshown" ] && [ -n "$showregexp" ] &&
+           [ -n "$curregexp" ]; then
+            echo "  pattern:   $curregexp"
+            regexpshown=true
+          elif [ -n "$showhwid" ]; then
+            echo "  model:  $curhwid"
+          fi
+        fi
       done < "$config"
 
       echo
@@ -828,6 +901,15 @@ fi
 # Make sure we have the tools we need
 require_utils
 
+# Tell user to use the new Chromebook Recovery Utility
+warn ""
+warn "======================================================================"
+warn "This tool is in maintenance mode."
+warn "Try the new Chromebook Recovery Utility on Chrome OS, Windows, or Mac."
+warn "For more information, visit http://www.google.com/chromeos/recovery."
+warn "======================================================================"
+warn ""
+
 # Need a place to work. We prefer a fixed location so we can try to resume any
 # interrupted downloads.
 if [ -n "$WORKDIR" ]; then
@@ -847,7 +929,8 @@ warn "Working in $WORKDIR/"
 rm -f "$debug"
 
 # Download the config file to see what choices we have.
-warn "Downloading config file from $CONFIGURL"
+DISPLAYED_CONFIGURL=`echo $CONFIGURL | sed s/\?.*//`
+warn "Downloading config file from $DISPLAYED_CONFIGURL"
 fetch_url "$CONFIGURL" "$tmpfile" || \
   gfatal "Unable to download the config file"
 
