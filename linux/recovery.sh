@@ -243,7 +243,7 @@ unzip() {
   recoveryzip="$1"
   local destfile
   destfile="$2"
-  python -m zipfile -e $recoveryzip $WORKDIR
+  python -m zipfile -e $recoveryzip .
 }
 
 
